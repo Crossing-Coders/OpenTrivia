@@ -9,3 +9,25 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Restraunt {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  email        String?
+  phone        String?
+  triviaEvents TriviaEvent[]
+  address      String
+  city         String
+  state        String
+  zipCode      Int
+  url          String
+}
+
+model TriviaEvent {
+  id          Int       @id @default(autoincrement())
+  name        String
+  restraunt   Restraunt @relation(fields: [restrauntId], references: [id])
+  restrauntId Int
+  starts_at   DateTime
+  price       Int?
+}
