@@ -1,0 +1,16 @@
+.layout-header {
+    background-color: green;
+    color:brown;
+    font-size: 30px;
+    text-align: center;
+    padding: 30px;
+}
+
+
+.layout-footer {
+    background-color: rgb(0, 34, 128);
+    color: rgb(151, 145, 145);
+    font-size: 30px;
+    text-align: center;
+    padding: 30px;
+}
