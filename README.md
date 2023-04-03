@@ -5,11 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -21,6 +17,28 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+### Database
+
+You can use a local .sqlite database file for working in your development environment.
+
+First, ensure your .env file contains the line:
+
+DATABASE_URL="file:./dev.db"
+
+To seed your database:
+
+```bash
+yarn prisma db seed
+```
+
+To interact with the data in your .sqlite database:
+
+```bash
+yarn prisma studio
+```
+
+Then open a web browser at http://localhost:5555
 
 ## Learn More
 
