@@ -125,19 +125,24 @@ export const TriviaListDisplayContainer: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <TriviaFilterSelector
-            selectedFilters={selectedFilters}
-            onFilterChange={handleFilterChange}
-          />
+        <div className="flex">
+          {/* overflow-y-scroll */}
+          <div className="h-full sticky top-0 bg-slate-800 text-white">
+            <TriviaFilterSelector
+              selectedFilters={selectedFilters}
+              onFilterChange={handleFilterChange}
+            />
+          </div>
           {/* Need to add the Filter Logic - might make sense to put in a triviaList Component */}
-
-          <TriviaCardList triviaEntryList = {triviaEntryList}/>
-        </>
+          <div className="flex-grow p-4 bg-gray-300">
+            <TriviaCardList triviaEntryList={triviaEntryList} />
+            <TriviaCardList triviaEntryList={triviaEntryList} />
+          </div>
+        </div>
       )}
     </div>
   );

@@ -50,11 +50,13 @@ interface TriviaCardListProps {
 export const TriviaCardList: React.FC<TriviaCardListProps> = ({
   triviaEntryList
 }) => {
-  return <>{triviaEntryList?.map(
-    triviaEntry => {
+  return (
+    <div>
+      {triviaEntryList?.map((triviaEntry) => {
         return (
-        <TriviaCard key= {triviaEntry.triviaId} triviaEntry={triviaEntry}/>
-        )
-    }
-  )}</>;
+          <TriviaCard key={triviaEntry.triviaId} triviaEntry={triviaEntry} />
+        );
+      })}
+    </div>
+  );
 };
