@@ -110,6 +110,8 @@ export const TriviaListDisplayContainer: React.FC = () => {
   const [selectedFilters, setSelectedFilters] =
     useState<TriviaFilter>(defaultFilter);
 
+
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -129,20 +131,35 @@ export const TriviaListDisplayContainer: React.FC = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex">
-          {/* overflow-y-scroll */}
-          <div className="h-full sticky top-0 bg-slate-800 text-white">
-            <TriviaFilterSelector
-              selectedFilters={selectedFilters}
-              onFilterChange={handleFilterChange}
-            />
+        <>
+          <div className="hidden absolute mobile-menu overflow-none flex w-full">
+            <div className="h-screen w-64 bg-opacity-90 bg-gray-300">
+              mobile menu
+              <button
+                // onclick="toggleMobileMenu()"
+                className="border h-8 px-2 ml-4 bg-gray-100 shadow rounded-full hover:bg-gray-200"
+              >
+                toggle mobile
+              </button>
+            </div>
+            <div className="w-full h-screen bg-opacity-80 bg-indigo-300"></div>
           </div>
-          {/* Need to add the Filter Logic - might make sense to put in a triviaList Component */}
-          <div className="flex-grow p-4 bg-gray-300">
-            <TriviaCardList triviaEntryList={triviaEntryList} />
-            <TriviaCardList triviaEntryList={triviaEntryList} />
+
+          <div className="flex max-h-screen m:">
+            {/* overflow-y-scroll */}
+            <div className="hidden sm:block top-0 z-10 sticky w-32 bg-slate-800 flex-fill text-white">
+              <TriviaFilterSelector
+                selectedFilters={selectedFilters}
+                onFilterChange={handleFilterChange}
+              />
+            </div>
+            {/* Need to add the Filter Logic - might make sense to put in a triviaList Component */}
+            <div className="flex-grow overflow-y-scroll p-4 bg-gray-300">
+              <TriviaCardList triviaEntryList={triviaEntryList} />
+              <TriviaCardList triviaEntryList={triviaEntryList} />
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

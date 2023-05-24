@@ -1,5 +1,9 @@
 function Footer() {
-  return <div className="layout-footer">FOOTER</div>;
+  return (
+    <div className="bg-lime-700 sticky top-0 z-50 text-center text-white text-lg p-8">
+      FOOTER
+    </div>
+  );
 }
 
 export default Footer;
