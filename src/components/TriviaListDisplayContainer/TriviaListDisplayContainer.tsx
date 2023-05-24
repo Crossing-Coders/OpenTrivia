@@ -131,23 +131,9 @@ export const TriviaListDisplayContainer: React.FC = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <div className="hidden absolute mobile-menu overflow-none flex w-full">
-            <div className="h-screen w-64 bg-opacity-90 bg-gray-300">
-              mobile menu
-              <button
-                // onclick="toggleMobileMenu()"
-                className="border h-8 px-2 ml-4 bg-gray-100 shadow rounded-full hover:bg-gray-200"
-              >
-                toggle mobile
-              </button>
-            </div>
-            <div className="w-full h-screen bg-opacity-80 bg-indigo-300"></div>
-          </div>
-
-          <div className="flex max-h-screen m:">
+          <div className="flex max-h-screen">
             {/* overflow-y-scroll */}
-            <div className="hidden sm:block top-0 z-10 sticky w-32 bg-slate-800 flex-fill text-white">
+            <div className="hidden lg:block top-0 z-10 sticky w-32 bg-slate-800 flex-fill text-white">
               <TriviaFilterSelector
                 selectedFilters={selectedFilters}
                 onFilterChange={handleFilterChange}
@@ -159,7 +145,6 @@ export const TriviaListDisplayContainer: React.FC = () => {
               <TriviaCardList triviaEntryList={triviaEntryList} />
             </div>
           </div>
-        </>
       )}
     </div>
   );
