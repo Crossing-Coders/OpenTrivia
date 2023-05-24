@@ -46,10 +46,13 @@ interface TriviaCardProps {
 
 export const TriviaCard: React.FC<TriviaCardProps> = ({ triviaEntry }) => {
   return (
-    <div id={"outerHoverBoxMain"}>
-      <div id={"innerHoverBox"}>
-        <div id={"restrauntMainContainer"}>
-          <div id={"restrauntImageContainer"}>
+    <div className="test w-full" id={"outerHoverBoxMain"}>
+      <div className="test w-full" id={"innerHoverBox"}>
+        <div
+          className="flex flex-row justify-center"
+          id={"restrauntMainContainer"}
+        >
+          <div className="basis-1/3 " id={"restrauntImageContainer"}>
             <Image
               src="https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
               width={500}
@@ -57,11 +60,16 @@ export const TriviaCard: React.FC<TriviaCardProps> = ({ triviaEntry }) => {
               alt="Picture of the author"
             />
           </div>
-          <div id={"restrauntInfoContainer"}>
-            <div className='text-3xl font-bold underline'>NAME ({triviaEntry?.locationName})</div>
-            <div>LINK</div>
-            <div>DAY</div>
-            <div>TIME</div>
+          <div
+            className="flex flex-col w-full h-full basis-2/3"
+            id={"restrauntInfoContainer"}
+          >
+            <div className="text-3xl basis-1/4 font-bold underline text-ellipsis break-norma">
+              NAME ({triviaEntry?.locationName})
+            </div>
+            <div className="basis-1/4">LINK</div>
+            <div className="basis-1/4">DAY</div>
+            <div className="basis-1/4">TIME</div>
           </div>
         </div>
       </div>

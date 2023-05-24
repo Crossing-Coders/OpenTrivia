@@ -39,6 +39,9 @@ export const TriviaFilterSelector: React.FC<TriviaFilterProps> = ({
 
   return (
     <div>
+      <div>
+        FILTERS
+      </div>
       {selectedFilters.time.timeStartBeginRange} -{" "}
       {selectedFilters.time.timeStartEndRange}{" "}
     </div>
