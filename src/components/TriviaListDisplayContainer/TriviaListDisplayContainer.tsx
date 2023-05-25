@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { TriviaFilterSelector } from "./TriviaFilterSelector";
+import Header from "../layout/Header";
 import {TriviaCard} from './TriviaCard'
 //Should I have another container for the trivia cards?
 
@@ -127,13 +128,14 @@ export const TriviaListDisplayContainer: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-full">
+    <div className="min-h-screen w-full">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex flex-row max-h-screen min-w-full min-h-full">
+        <div className="flex flex-row min-w-full min-h-screen">
           {/* FILTER*/}
-          <div className="hidden lg:block basis-1/12 top-0 z-10 sticky bg-slate-800 text-white">
+          {/* want height to be (h-screen) - (headerheight) */}
+          <div className="hidden lg:block h-screen sticky self-end basis-1/12 bottom-0 z-10  bg-slate-800 text-white">
             <TriviaFilterSelector
               selectedFilters={selectedFilters}
               onFilterChange={handleFilterChange}
@@ -141,13 +143,13 @@ export const TriviaListDisplayContainer: React.FC = () => {
           </div>
           {/* LIST*/}
           {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
-          <div className="lg:block overflow-y-scroll w-fill lg:basis-6/12 p-4 bg-gray-300 min-h-full">
-            <div className="flex flex-col w-full items-center">
+          <div className="lg:block w-fill lg:basis-6/12 p-4 bg-gray-300 min-h-full">
+            <div className="flex flex-col w-full items-center    ">
               <TriviaCardList triviaEntryList={triviaEntryList} />
             </div>
           </div>
           {/* RESTRAUNT PAGE -- hidden unless lg*/}
-          <div className="hidden lg:block  top-0 z-10 basis-5/12 bg-orange-700">
+          <div className="hidden lg:block h-screen sticky self-end bottom-0 z-10 basis-5/12 bg-orange-700">
             {" "}
             test{" "}
           </div>

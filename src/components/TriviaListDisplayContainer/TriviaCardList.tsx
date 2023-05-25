@@ -72,6 +72,26 @@ export const TriviaCardList: React.FC<TriviaCardListProps> = ({
           <TriviaCard key={triviaEntry.triviaId} triviaEntry={triviaEntry} />
         );
       })}
+      {triviaEntryList?.map((triviaEntry) => {
+        return (
+          <TriviaCard key={triviaEntry.triviaId} triviaEntry={triviaEntry} />
+        );
+      })}
+      {triviaEntryList?.map((triviaEntry) => {
+        return (
+          <TriviaCard key={triviaEntry.triviaId} triviaEntry={triviaEntry} />
+        );
+      })}
+      {triviaEntryList?.map((triviaEntry) => {
+        return (
+          <TriviaCard key={triviaEntry.triviaId} triviaEntry={triviaEntry} />
+        );
+      })}
+      {triviaEntryList?.map((triviaEntry) => {
+        return (
+          <TriviaCard key={triviaEntry.triviaId} triviaEntry={triviaEntry} />
+        );
+      })}
     </>
   );
 };

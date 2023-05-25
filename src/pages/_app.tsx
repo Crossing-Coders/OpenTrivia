@@ -22,10 +22,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }
 
   return (
-    <>
-      <Header />
-      <Component {...pageProps} />
+    <div>
+        <Header />
+        <Component {...pageProps} />
       <Footer />
-    </>
+    </div>
   );
 }

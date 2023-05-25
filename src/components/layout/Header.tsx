@@ -1,11 +1,11 @@
 import { useState } from "react";
 function Header() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
-    const [isNavOpen, setIsNavOpen] = useState(false);
-
-
+  //bg-lime-700 z-50 text-center sticky top-0 text-white text-lg p-8
+  //flex sitcky top-0 text-center justify-between border-b border-gray-400 p-8 
   return (
-    <div className="flex items-center justify-between border-b border-gray-400 py-8">
+    <div className="flex sticky top-0 text-center bg-white z-50 justify-between border-b border-gray-400 p-8">
       {/* TODO: CHANGE THIS TO NEXTJS LINK */}
       <a href="/">
         <img
@@ -14,13 +14,13 @@ function Header() {
           alt="logo"
         />
       </a>
-      <div>
+      <div className="">
         <section className="MOBILE-MENU flex lg:hidden">
           <div
             className="HAMBURGER-ICON space-y-2 pr-4"
             onClick={() => setIsNavOpen((prev) => !prev)}
           >
-            <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
+            <span className="block z h-0.5 w-8 animate-pulse bg-gray-600"></span>
             <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
             <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
           </div>
@@ -57,7 +57,7 @@ function Header() {
           </div>
         </section>
 
-        <ul className="DESKTOP-MENU hidden space-x-8 pr-6 lg:flex">
+        <ul className="DESKTOP-MENU hidden text-center space-x-8 pr-6 lg:flex">
           <li>
             <a href="/about">Login</a>
           </li>
@@ -67,8 +67,10 @@ function Header() {
         </ul>
       </div>
     </div>
+    // <div className="bg-lime-700 z-50 text-center sticky top-0 text-white text-lg p-8">
+    //   FOOTER
+    // </div>
   );
-  
 }
 
 export default Header;

@@ -38,12 +38,16 @@ export const TriviaFilterSelector: React.FC<TriviaFilterProps> = ({
   //Display of filters (Checked/Unchecked etc.) will be based on the selectedFilters Prop
 
   return (
-    <div>
-      <div>
-        FILTERS
-      </div>
+    <aside>
+      <div>FILTERS</div>
       {selectedFilters.time.timeStartBeginRange} -{" "}
-      {selectedFilters.time.timeStartEndRange}{" "}
-    </div>
+      {selectedFilters.time.timeStartEndRange} <div>FILTERS</div>{" "}
+      <div>FILTERS</div> <div>FILTERS</div> <div>FILTERS</div>{" "}
+   
+      <div>FILTERS</div> <div>FILTERS</div> <div>FILTERS</div>{" "}
+      
+
+
+    </aside>
   );
 };
