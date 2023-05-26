@@ -1,5 +1,5 @@
 //Ignore this file -- just a demonstration on how to define page specific files (IE we want a different header/footer on this specific page)
-import Footer from "@/components/layout/Footer"
+import Footer from "@/components/Footer/Footer"
 import { ReactNode } from "react";
 
 function About() {

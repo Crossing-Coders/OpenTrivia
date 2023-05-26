@@ -3,7 +3,7 @@ import Image from "next/image";
 
 
 
-export const OpenTriviaCard= () => {
+const LandingPageScreen= () => {
   
   return (
 
@@ -13,3 +13,4 @@ export const OpenTriviaCard= () => {
   );
 };
 
+export default LandingPageScreen;

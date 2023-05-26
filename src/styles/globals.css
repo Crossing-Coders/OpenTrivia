@@ -4,5 +4,5 @@
 
 .sideFrameHeight {
     max-height: calc(100vh - 115.83px);
-    min-height: calc(100vh - 115.83px)
+    min-height: calc(100vh - 115.83px);
 }

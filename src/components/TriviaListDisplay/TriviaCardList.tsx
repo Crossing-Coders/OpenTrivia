@@ -57,9 +57,13 @@ export const TriviaCardList: React.FC<TriviaCardListProps> = ({
   onLocationCardClick,
   currentlySelectedLocation,
 }) => {
+  
+  //TODO: IF FILTER MAKES LIST EMPTY
+  if (!triviaEntryList) return <>ERROR</>
+
   return (
     <div className="flex flex-col w-full items-center">
-      {triviaEntryList?.map((triviaEntry) => {
+      {triviaEntryList.map((triviaEntry) => {
         return (
           <TriviaCard
             key={triviaEntry.locationId}

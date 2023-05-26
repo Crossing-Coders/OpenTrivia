@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
-import { OpenTriviaCard } from "./OpenTriviaCard";
 
 interface TriviaEntry {
   locationId: number;
@@ -45,14 +44,16 @@ interface TriviaEntry {
 interface LocationCardProps {
   triviaEntry: TriviaEntry | undefined;
 }
-//box-shadow: 0 0 10px #0000001a;
 
-export const LocationCard: React.FC<LocationCardProps> = ({ triviaEntry }) => {
-  return triviaEntry === undefined ? (
-    <OpenTriviaCard />
-  ) : (
+const LocationTriviaScreen: React.FC<LocationCardProps> = ({ triviaEntry }) => {
+  
+  return (
+
     <div className="text-white place-self-center">
       LOCATION PAGE: {triviaEntry?.locationName}
     </div>
   );
 };
+
+
+export default LocationTriviaScreen

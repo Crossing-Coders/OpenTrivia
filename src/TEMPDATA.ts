@@ -17,7 +17,7 @@ export const TEMPDATA = [
     locationAddressState: "GA",
     locationAddressZip: "30315",
     locationAddressFull: "1015 Grant St SE, Atlanta, GA 30315",
-    triviaDay: "thursday",
+    trivia: "thursday",
     //How best to represent time?
     triviaStartTime: 1900,
     //On day of trivia

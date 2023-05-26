@@ -1,51 +1,10 @@
 import React from "react";
 import Image from "next/image";
-import { useState } from "react";
 
-interface TriviaEntry {
-  locationId: number;
-  //For instances where location has more than one trivia night
-  triviaId: number;
-  locationName: string;
-  locationWebsite: string;
-  locationInstagram: string;
-  locationTwitter: string;
-  locationFacebook: string;
-  locationImage: string;
-  locationType: string;
-  locationPhoneNumber: string;
-  locationAddressStreet: string;
-  locationAddressCity: string;
-  locationAddressState: string;
-  locationAddressZip: string;
-  locationAddressFull: string;
-  triviaDay: string;
-  triviaStartTime: number;
-  //On day of trivia
-  locationCloseTime: number;
-  triviaCompany: string | null;
-  locationFood: {
-    foodTruck: boolean | string;
-    kitchen: boolean | string;
-    bringYourOwn: boolean | string;
-  };
-  locationAlcohol: {
-    wine: boolean | string;
-    liquor: boolean | string;
-    beer: boolean | string;
-  };
-  locationAllowsDogs: boolean | string;
-  locationOutdoorSeating: {
-    forTrivia: boolean | string;
-    general: boolean | string;
-  };
-}
+import {TriviaEntry} from '../../types/index'
 
-interface TriviaCardProps {
-  triviaEntry: TriviaEntry | null;
-  onLocationCardClick: (triviaId: number | undefined) => void;
-  currentlySelected: boolean
-}
+
+
 //TODO: FINALIZE WHAT IT LOOKS LIKE WHEN SELECTED
 //TODO: Figure out how to make it open a new page instead of mobile selecting the thing or have a back button or something
 //TODO: REMOVE IDS FROM DIVS
@@ -55,7 +14,11 @@ interface TriviaCardProps {
 //TODO: SHAREABLE LINKS
 //TODO: IMG BORDERS?
 
-
+interface TriviaCardProps {
+  triviaEntry: TriviaEntry | null;
+  onLocationCardClick: (triviaId: number | undefined) => void;
+  currentlySelected: boolean;
+}
 export const TriviaCard: React.FC<TriviaCardProps> = ({
   triviaEntry,
   onLocationCardClick,
@@ -67,6 +30,9 @@ export const TriviaCard: React.FC<TriviaCardProps> = ({
   };
 
   const backGroundColor = currentlySelected ? 'bg-green-300' : 'bg-slate-50' 
+  //TODO: Figureout what to return if there is an error here
+  if (!triviaEntry) return <>FALSE</>
+
   return (
     <div
       className={`test mb-8 w-full h-64 ${backGroundColor} rounded-md cursor-pointer shadow-md motion-reduce:animate-pulse ease-in duration-150 hover:shadow-xl py-2`}
@@ -80,7 +46,7 @@ export const TriviaCard: React.FC<TriviaCardProps> = ({
             id={"restrauntImageContainer"}
           >
             <Image
-              className="rounded-md self-center"
+              className="rounded-md self-center outline-dotted outline-pink-200"
               src={
                 triviaEntry
                   ? triviaEntry.locationImage
@@ -97,7 +63,7 @@ export const TriviaCard: React.FC<TriviaCardProps> = ({
           >
             <div className="text-3xl basis-1/4 font-bold underline text-ellipsis break-norma">
               NAME (
-              {triviaEntry?.locationName}
+              {triviaEntry.locationName}
               )
             </div>
             <div className="basis-1/4">LINK</div>
