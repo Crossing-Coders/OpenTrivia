@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import {ScreenDisplay} from './ScreenDisplay'
-import { TriviaFilterSelector } from "./TriviaFilterSelector";
-import { TriviaCardList } from "./TriviaCardList";
+import {ScreenDisplay} from './TriviaVenueScreenDisplay'
+import { TriviaVenueFilterSelector } from "./TriviaVenueFilterSelector";
+import { TriviaVenueCardList } from "./TriviaVenueCardList";
 
 
 
@@ -10,8 +10,8 @@ import { TriviaCardList } from "./TriviaCardList";
 
 
 
-import { TriviaEntry } from "../../types/index";
-import { TriviaFilter } from "../../types/index";
+import { TriviaVenueEntryData } from "../../types/index";
+import { TriviaVenueFilterData } from "../../types/index";
 
 
 
@@ -42,53 +42,52 @@ const defaultFilter = {
     timeStartBeginRange: 1600,
     timeStartEndRange: 2200,
   },
-  location: {
+  geoData: {
     zipCode: null,
     mileage: null,
   },
   searchTerm: "",
 };
 //TODO: DEFAULT OPEN TRIVIA PAGE
-//TODO: SET UP EACH LOCATIONS PAGE
+//TODO: SET UP EACH Venues PAGE
 //TODO: WE NEED A MAP
 //TODO: FILTERS
 //TODO: CLEAN UP CSS
 
-const TriviaListDisplay: React.FC = () => {
-    //Should we have a list of filtered Trivias?
-//   const [filteredTriviaList, setFilteredTriviaList] = useState<Array<TriviaEntry> | null>(null);
+const TriviaVenueListDisplay: React.FC = () => {
+  //Should we have a list of filtered Trivias?
+  //   const [filteredTriviaList, setFilteredTriviaList] = useState<Array<TriviaEntry> | null>(null);
 
-  const [triviaEntryList, setTriviaEntryList] = useState<Array<TriviaEntry> | null>(null);
-  const [currentlySelectedLocation, setCurrentlySelectedLocation] = useState<
+  const [triviaVenueEntryList, setTriviaVenueEntryList] =
+    useState<Array<TriviaVenueEntryData> | null>(null);
+
+  const [currentlySelectedTriviaVenue, setCurrentlySelectedTriviaVenue] = useState<
     number | null
   >(0);
   const [filtersActive, setFiltersActive] = useState<boolean>(false);
 
   const [selectedFilters, setSelectedFilters] =
-    useState<TriviaFilter>(defaultFilter);
-
-
+    useState<TriviaVenueFilterData>(defaultFilter);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      setTriviaEntryList(TEMPDATA);
+      setTriviaVenueEntryList(TEMPDATA);
       setIsLoading(false);
     };
     fetchData();
   }, []);
 
-  const handleFilterChange = (triviaFilter: TriviaFilter) => {
+  const handleFilterChange = (triviaFilter: TriviaVenueFilterData) => {
     setSelectedFilters(triviaFilter);
   };
 
-    const handleSelectedLocationChange = (locationId: number | undefined) => {
-      locationId === currentlySelectedLocation
-        ? setCurrentlySelectedLocation(0)
-        : setCurrentlySelectedLocation(locationId ? locationId : 0);
-    };
-  
+  const handleSelectedTriviaVenueChange = (venueId: number | undefined) => {
+    venueId === currentlySelectedTriviaVenue
+      ? setCurrentlySelectedTriviaVenue(0)
+      : setCurrentlySelectedTriviaVenue(venueId ? venueId : 0);
+  };
 
   return (
     <div className="min-h-screen w-full">
@@ -98,7 +97,7 @@ const TriviaListDisplay: React.FC = () => {
         <div className="flex flex-row min-w-full min-h-screen">
           {/* FILTER*/}
           <div className="hidden lg:block sticky sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
-            <TriviaFilterSelector
+            <TriviaVenueFilterSelector
               selectedFilters={selectedFilters}
               onFilterChange={handleFilterChange}
             />
@@ -106,19 +105,19 @@ const TriviaListDisplay: React.FC = () => {
           {/* LIST*/}
           {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
           <div className="lg:block w-fill lg:basis-6/12 p-4 bg-stone-50 min-h-full">
-            <TriviaCardList
-              triviaEntryList={triviaEntryList}
-              onLocationCardClick={handleSelectedLocationChange}
-              currentlySelectedLocation={currentlySelectedLocation}
+            <TriviaVenueCardList
+              triviaVenueEntryList={triviaVenueEntryList}
+              onTriviaVenueCardClick={handleSelectedTriviaVenueChange}
+              currentlySelectedTriviaVenue={currentlySelectedTriviaVenue}
             />
           </div>
           {/* RESTRAUNT PAGE -- hidden unless lg*/}
 
           <div className="hidden lg:flex flex-col justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-orange-700">
             <ScreenDisplay
-              triviaEntry={triviaEntryList?.find(
-                (triviaEntry) =>
-                  triviaEntry.locationId === currentlySelectedLocation
+              triviaEntry={triviaVenueEntryList?.find(
+                (triviaVenueEntry) =>
+                  triviaVenueEntry.triviaVenueId === currentlySelectedTriviaVenue
               )}
             />
           </div>
@@ -128,4 +127,4 @@ const TriviaListDisplay: React.FC = () => {
   );
 };
 
-export default TriviaListDisplay;
+export default TriviaVenueListDisplay;

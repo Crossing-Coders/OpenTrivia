@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import {TriviaEntry} from '../../types/index'
+import {TriviaVenueEntryData} from '../../types/index'
 
 
 
@@ -14,30 +14,30 @@ import {TriviaEntry} from '../../types/index'
 //TODO: SHAREABLE LINKS
 //TODO: IMG BORDERS?
 
-interface TriviaCardProps {
-  triviaEntry: TriviaEntry | null;
-  onLocationCardClick: (triviaId: number | undefined) => void;
+interface TriviaVenueCardProps {
+  triviaVenueEntry: TriviaVenueEntryData | null;
+  onTriviaVenueCardClick: (triviaVenueId: number | undefined) => void;
   currentlySelected: boolean;
 }
-export const TriviaCard: React.FC<TriviaCardProps> = ({
-  triviaEntry,
-  onLocationCardClick,
-  currentlySelected
+export const TriviaVenueCard: React.FC<TriviaVenueCardProps> = ({
+  triviaVenueEntry,
+  onTriviaVenueCardClick,
+  currentlySelected,
 }) => {
-  const handleLocationCardClick = (event: any) => {
-    console.log(triviaEntry?.locationId);
-    onLocationCardClick(triviaEntry?.locationId);
+  const handleTriviaVenueCardClick = (event: any) => {
+    console.log(triviaVenueEntry?.triviaVenueId);
+    onTriviaVenueCardClick(triviaVenueEntry?.triviaVenueId);
   };
 
-  const backGroundColor = currentlySelected ? 'bg-green-300' : 'bg-slate-50' 
+  const backGroundColor = currentlySelected ? "bg-green-300" : "bg-slate-50";
   //TODO: Figureout what to return if there is an error here
-  if (!triviaEntry) return <>FALSE</>
+  if (!triviaVenueEntry) return <>FALSE</>;
 
   return (
     <div
       className={`test mb-8 w-full h-64 ${backGroundColor} rounded-md cursor-pointer shadow-md motion-reduce:animate-pulse ease-in duration-150 hover:shadow-xl py-2`}
       id={"outerHoverBoxMain"}
-      onClick={handleLocationCardClick}
+      onClick={handleTriviaVenueCardClick}
     >
       <div className="test h-full w-full" id={"innerHoverBox"}>
         <div className="flex h-full flex-row" id={"restrauntMainContainer"}>
@@ -48,8 +48,8 @@ export const TriviaCard: React.FC<TriviaCardProps> = ({
             <Image
               className="rounded-md self-center outline-dotted outline-pink-200"
               src={
-                triviaEntry
-                  ? triviaEntry.locationImage
+                triviaVenueEntry
+                  ? triviaVenueEntry.triviaVenueImage
                   : "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
               }
               width={150}
@@ -62,9 +62,7 @@ export const TriviaCard: React.FC<TriviaCardProps> = ({
             id={"restrauntInfoContainer"}
           >
             <div className="text-3xl basis-1/4 font-bold underline text-ellipsis break-norma">
-              NAME (
-              {triviaEntry.locationName}
-              )
+              NAME ({triviaVenueEntry.triviaVenueName})
             </div>
             <div className="basis-1/4">LINK</div>
             <div className="basis-1/4">DAY</div>

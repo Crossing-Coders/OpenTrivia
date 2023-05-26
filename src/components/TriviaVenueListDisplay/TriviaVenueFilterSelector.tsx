@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 
-import { TriviaFilter } from "@/types";
+import { TriviaVenueFilterData } from "@/types";
 
-interface TriviaFilterProps {
-  selectedFilters: TriviaFilter;
-  onFilterChange: (triviaFilter: TriviaFilter) => void;
-  
+interface TriviaVenueFilterProps {
+  selectedFilters: TriviaVenueFilterData;
+  onFilterChange: (triviaFilter: TriviaVenueFilterData) => void;
 }
 
 //Do we want to apply filter instantly on filter selection or have a button that allows user to apply filter?
 //Doing it now instantaneously
-export const TriviaFilterSelector: React.FC<TriviaFilterProps> = ({
+export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
   selectedFilters,
   onFilterChange,
 }) => {
-  const handleFilterSelect = (event: any, values: TriviaFilter) => {
+  const handleFilterSelect = (event: any, values: TriviaVenueFilterData) => {
     onFilterChange(values);
   };
 
@@ -27,11 +26,7 @@ export const TriviaFilterSelector: React.FC<TriviaFilterProps> = ({
       {selectedFilters.time.timeStartBeginRange} -{" "}
       {selectedFilters.time.timeStartEndRange} <div>FILTERS</div>{" "}
       <div>FILTERS</div> <div>FILTERS</div> <div>FILTERS</div>{" "}
-   
       <div>FILTERS</div> <div>FILTERS</div> <div>FILTERS</div>{" "}
-      
-
-
     </aside>
   );
 };
