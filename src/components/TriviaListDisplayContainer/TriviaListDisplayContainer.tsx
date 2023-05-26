@@ -8,6 +8,7 @@ import {TriviaCard} from './TriviaCard'
 import { TEMPDATA } from "../../TEMPDATA";
 import { BooleanLiteral } from "typescript";
 import { TriviaCardList } from "./TriviaCardList";
+import { LocationCard } from "./LocationCard";
 
 //Seperate Types Folder?
 
@@ -28,7 +29,7 @@ interface TriviaEntry {
   locationInstagram: string;
   locationTwitter: string;
   locationFacebook: string;
-  locationImage: string | null;
+  locationImage: string;
   locationType: string;
   locationPhoneNumber: string;
   locationAddressStreet: string;
@@ -99,13 +100,20 @@ const defaultFilter = {
   },
   searchTerm: "",
 };
+//TODO: DEFAULT OPEN TRIVIA PAGE
+//TODO: SET UP EACH LOCATIONS PAGE
+//TODO: WE NEED A MAP
+//TODO: FILTERS
+//TODO: CLEAN UP CSS
 
 export const TriviaListDisplayContainer: React.FC = () => {
     //Should we have a list of filtered Trivias?
 //   const [filteredTriviaList, setFilteredTriviaList] = useState<Array<TriviaEntry> | null>(null);
 
   const [triviaEntryList, setTriviaEntryList] = useState<Array<TriviaEntry> | null>(null);
-
+  const [currentlySelectedLocation, setCurrentlySelectedLocation] = useState<
+    number | null
+  >(0);
   const [filtersActive, setFiltersActive] = useState<boolean>(false);
 
   const [selectedFilters, setSelectedFilters] =
@@ -127,6 +135,13 @@ export const TriviaListDisplayContainer: React.FC = () => {
     setSelectedFilters(triviaFilter);
   };
 
+    const handleSelectedLocationChange = (locationId: number | undefined) => {
+      locationId === currentlySelectedLocation
+        ? setCurrentlySelectedLocation(0)
+        : setCurrentlySelectedLocation(locationId ? locationId : 0);
+    };
+  
+
   return (
     <div className="min-h-screen w-full">
       {isLoading ? (
@@ -134,8 +149,7 @@ export const TriviaListDisplayContainer: React.FC = () => {
       ) : (
         <div className="flex flex-row min-w-full min-h-screen">
           {/* FILTER*/}
-          {/* want height to be (h-screen) - (headerheight) */}
-          <div className="hidden lg:block h-screen sticky self-end basis-1/12 bottom-0 z-10  bg-slate-800 text-white">
+          <div className="hidden lg:block sticky sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
             <TriviaFilterSelector
               selectedFilters={selectedFilters}
               onFilterChange={handleFilterChange}
@@ -143,15 +157,22 @@ export const TriviaListDisplayContainer: React.FC = () => {
           </div>
           {/* LIST*/}
           {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
-          <div className="lg:block w-fill lg:basis-6/12 p-4 bg-gray-300 min-h-full">
-            <div className="flex flex-col w-full items-center    ">
-              <TriviaCardList triviaEntryList={triviaEntryList} />
-            </div>
+          <div className="lg:block w-fill lg:basis-6/12 p-4 bg-stone-50 min-h-full">
+            <TriviaCardList
+              triviaEntryList={triviaEntryList}
+              onLocationCardClick={handleSelectedLocationChange}
+              currentlySelectedLocation={currentlySelectedLocation}
+            />
           </div>
           {/* RESTRAUNT PAGE -- hidden unless lg*/}
-          <div className="hidden lg:block h-screen sticky self-end bottom-0 z-10 basis-5/12 bg-orange-700">
-            {" "}
-            test{" "}
+          
+          <div className="hidden lg:flex flex-col justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-orange-700">
+            <LocationCard
+              triviaEntry={triviaEntryList?.find(
+                (triviaEntry) =>
+                  triviaEntry.locationId === currentlySelectedLocation
+              )}
+            />
           </div>
         </div>
       )}

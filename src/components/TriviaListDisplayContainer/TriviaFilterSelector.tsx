@@ -23,6 +23,7 @@ interface TriviaFilter {
 interface TriviaFilterProps {
   selectedFilters: TriviaFilter;
   onFilterChange: (triviaFilter: TriviaFilter) => void;
+  
 }
 
 //Do we want to apply filter instantly on filter selection or have a button that allows user to apply filter?
@@ -36,7 +37,8 @@ export const TriviaFilterSelector: React.FC<TriviaFilterProps> = ({
   };
 
   //Display of filters (Checked/Unchecked etc.) will be based on the selectedFilters Prop
-
+  //USE URL QUERYS????
+  //CAN BE PUSHED VIA HEADER
   return (
     <aside>
       <div>FILTERS</div>

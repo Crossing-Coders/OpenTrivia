@@ -82,4 +82,172 @@ export const TEMPDATA = [
       general: false,
     },
   },
+  {
+    locationId: 11,
+    //For instances where location has more than one trivia night
+    triviaId: 111,
+    locationName: "El Trompo (UNF)",
+    locationWebsite: "https://joesjohnscreek.com/",
+    locationInstagram:
+      "https://www.instagram.com/joessportsbarngrill_johnscrk/",
+    locationTwitter: "",
+    locationFacebook: "https://www.facebook.com/joesbarjohnscreek/",
+    locationImage:
+      "https://lh6.googleusercontent.com/-Bb3KLzVFCoI/AAAAAAAAAAI/AAAAAAAAAAA/O9YGG0C5gsE/s29-p-k-no-ns-nd/photo.jpg",
+    locationType: "Sports Bar",
+    locationPhoneNumber: "7706741189",
+    locationAddressStreet: "11950 Jones Bridge Rd",
+    locationAddressCity: "Alpharetta",
+    locationAddressState: "GA",
+    locationAddressZip: "30005",
+    locationAddressFull: "11950 Jones Bridge Rd, Alpharetta, GA 30005",
+    triviaDay: "thursday",
+    //How best to represent time?
+    triviaStartTime: 1930,
+    //On day of trivia
+    locationCloseTime: 200,
+    triviaCompany: "https://teamtrivia.com/home.php",
+    //setup ENUM incase of unknown? for now we do boolean or string
+    locationFood: {
+      foodTruck: false,
+      kitchen: true,
+      bringYourOwn: false,
+    },
+    locationAlcohol: {
+      wine: true,
+      liquor: true,
+      beer: true,
+    },
+    locationAllowsDogs: false,
+    locationOutdoorSeating: {
+      forTrivia: false,
+      general: false,
+    },
+  },
+  {
+    locationId: 22,
+    //For instances where location has more than one trivia night
+    triviaId: 222,
+    locationName: "The Local (UNF)",
+    locationWebsite: "https://joesjohnscreek.com/",
+    locationInstagram:
+      "https://www.instagram.com/joessportsbarngrill_johnscrk/",
+    locationTwitter: "",
+    locationFacebook: "https://www.facebook.com/joesbarjohnscreek/",
+    locationImage:
+      "https://lh6.googleusercontent.com/-Bb3KLzVFCoI/AAAAAAAAAAI/AAAAAAAAAAA/O9YGG0C5gsE/s29-p-k-no-ns-nd/photo.jpg",
+    locationType: "Sports Bar",
+    locationPhoneNumber: "7706741189",
+    locationAddressStreet: "11950 Jones Bridge Rd",
+    locationAddressCity: "Alpharetta",
+    locationAddressState: "GA",
+    locationAddressZip: "30005",
+    locationAddressFull: "11950 Jones Bridge Rd, Alpharetta, GA 30005",
+    triviaDay: "thursday",
+    //How best to represent time?
+    triviaStartTime: 1930,
+    //On day of trivia
+    locationCloseTime: 200,
+    triviaCompany: "https://teamtrivia.com/home.php",
+    //setup ENUM incase of unknown? for now we do boolean or string
+    locationFood: {
+      foodTruck: false,
+      kitchen: true,
+      bringYourOwn: false,
+    },
+    locationAlcohol: {
+      wine: true,
+      liquor: true,
+      beer: true,
+    },
+    locationAllowsDogs: false,
+    locationOutdoorSeating: {
+      forTrivia: false,
+      general: false,
+    },
+  },
+  {
+    locationId: 33,
+    //For instances where location has more than one trivia night
+    triviaId: 333,
+    locationName: "Mama's Boy (UNF)",
+    locationWebsite: "https://joesjohnscreek.com/",
+    locationInstagram:
+      "https://www.instagram.com/joessportsbarngrill_johnscrk/",
+    locationTwitter: "",
+    locationFacebook: "https://www.facebook.com/joesbarjohnscreek/",
+    locationImage:
+      "https://lh6.googleusercontent.com/-Bb3KLzVFCoI/AAAAAAAAAAI/AAAAAAAAAAA/O9YGG0C5gsE/s29-p-k-no-ns-nd/photo.jpg",
+    locationType: "Sports Bar",
+    locationPhoneNumber: "7706741189",
+    locationAddressStreet: "11950 Jones Bridge Rd",
+    locationAddressCity: "Alpharetta",
+    locationAddressState: "GA",
+    locationAddressZip: "30005",
+    locationAddressFull: "11950 Jones Bridge Rd, Alpharetta, GA 30005",
+    triviaDay: "thursday",
+    //How best to represent time?
+    triviaStartTime: 1930,
+    //On day of trivia
+    locationCloseTime: 200,
+    triviaCompany: "https://teamtrivia.com/home.php",
+    //setup ENUM incase of unknown? for now we do boolean or string
+    locationFood: {
+      foodTruck: false,
+      kitchen: true,
+      bringYourOwn: false,
+    },
+    locationAlcohol: {
+      wine: true,
+      liquor: true,
+      beer: true,
+    },
+    locationAllowsDogs: false,
+    locationOutdoorSeating: {
+      forTrivia: false,
+      general: false,
+    },
+  },
+  {
+    locationId: 44,
+    //For instances where location has more than one trivia night
+    triviaId: 444,
+    locationName: "Cali N Titos (UNF)",
+    locationWebsite: "https://joesjohnscreek.com/",
+    locationInstagram:
+      "https://www.instagram.com/joessportsbarngrill_johnscrk/",
+    locationTwitter: "",
+    locationFacebook: "https://www.facebook.com/joesbarjohnscreek/",
+    locationImage:
+      "https://lh6.googleusercontent.com/-Bb3KLzVFCoI/AAAAAAAAAAI/AAAAAAAAAAA/O9YGG0C5gsE/s29-p-k-no-ns-nd/photo.jpg",
+    locationType: "Sports Bar",
+    locationPhoneNumber: "7706741189",
+    locationAddressStreet: "11950 Jones Bridge Rd",
+    locationAddressCity: "Alpharetta",
+    locationAddressState: "GA",
+    locationAddressZip: "30005",
+    locationAddressFull: "11950 Jones Bridge Rd, Alpharetta, GA 30005",
+    triviaDay: "thursday",
+    //How best to represent time?
+    triviaStartTime: 1930,
+    //On day of trivia
+    locationCloseTime: 200,
+    triviaCompany: "https://teamtrivia.com/home.php",
+    //setup ENUM incase of unknown? for now we do boolean or string
+    locationFood: {
+      foodTruck: false,
+      kitchen: true,
+      bringYourOwn: false,
+    },
+    locationAlcohol: {
+      wine: true,
+      liquor: true,
+      beer: true,
+    },
+    locationAllowsDogs: false,
+    locationOutdoorSeating: {
+      forTrivia: false,
+      general: false,
+    },
+  },
 ];

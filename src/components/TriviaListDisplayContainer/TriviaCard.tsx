@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 interface TriviaEntry {
   locationId: number;
@@ -10,7 +11,7 @@ interface TriviaEntry {
   locationInstagram: string;
   locationTwitter: string;
   locationFacebook: string;
-  locationImage: string | null;
+  locationImage: string;
   locationType: string;
   locationPhoneNumber: string;
   locationAddressStreet: string;
@@ -42,60 +43,68 @@ interface TriviaEntry {
 
 interface TriviaCardProps {
   triviaEntry: TriviaEntry | null;
+  onLocationCardClick: (triviaId: number | undefined) => void;
+  currentlySelected: boolean
 }
+//TODO: FINALIZE WHAT IT LOOKS LIKE WHEN SELECTED
+//TODO: Figure out how to make it open a new page instead of mobile selecting the thing or have a back button or something
+//TODO: REMOVE IDS FROM DIVS
+//TODO: ACTUALLY FORMAT IT THE WAY WE WANT
+//TODO: FIGURE OUT WHY THE IMAGES ARE SO BAD LOL
+//TODO: FIGURE OUT DEFAULT IMAGE
+//TODO: SHAREABLE LINKS
+//TODO: IMG BORDERS?
 
-export const TriviaCard: React.FC<TriviaCardProps> = ({ triviaEntry }) => {
+
+export const TriviaCard: React.FC<TriviaCardProps> = ({
+  triviaEntry,
+  onLocationCardClick,
+  currentlySelected
+}) => {
+  const handleLocationCardClick = (event: any) => {
+    console.log(triviaEntry?.locationId);
+    onLocationCardClick(triviaEntry?.locationId);
+  };
+
+  const backGroundColor = currentlySelected ? 'bg-green-300' : 'bg-slate-50' 
   return (
-    <div className="test w-full" id={"outerHoverBoxMain"}>
-      <div className="test w-full" id={"innerHoverBox"}>
-        <div
-          className="flex flex-row justify-center"
-          id={"restrauntMainContainer"}
-        >
-          <div className="basis-1/3 " id={"restrauntImageContainer"}>
+    <div
+      className={`test mb-8 w-full h-64 ${backGroundColor} rounded-md cursor-pointer shadow-md motion-reduce:animate-pulse ease-in duration-150 hover:shadow-xl py-2`}
+      id={"outerHoverBoxMain"}
+      onClick={handleLocationCardClick}
+    >
+      <div className="test h-full w-full" id={"innerHoverBox"}>
+        <div className="flex h-full flex-row" id={"restrauntMainContainer"}>
+          <div
+            className="flex flex-col basis-4/12 grow-0 pl-7 h-max w-full self-center"
+            id={"restrauntImageContainer"}
+          >
             <Image
-              src="https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
-              width={500}
-              height={500}
+              className="rounded-md self-center"
+              src={
+                triviaEntry
+                  ? triviaEntry.locationImage
+                  : "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
+              }
+              width={150}
+              height={150}
               alt="Picture of the author"
             />
           </div>
           <div
-            className="flex flex-col w-full h-full basis-2/3"
+            className="flex flex-col w-full h-full basis-8/12"
             id={"restrauntInfoContainer"}
           >
             <div className="text-3xl basis-1/4 font-bold underline text-ellipsis break-norma">
-              NAME ({triviaEntry?.locationName})
+              NAME (
+              {triviaEntry?.locationName}
+              )
             </div>
             <div className="basis-1/4">LINK</div>
             <div className="basis-1/4">DAY</div>
-            <div className="basis-1/4">TIME</div>
           </div>
         </div>
       </div>
     </div>
-
-    // in theory, there is also a spacer <div class='search-results-divider><div>
   );
 };
-
-{/* <div class="chat-notification">
-  <div class="chat-notification-logo-wrapper">
-    <img class="chat-notification-logo" src="/img/logo.svg" alt="ChitChat Logo">
-  </div>
-  <div class="chat-notification-content">
-    <h4 class="chat-notification-title">ChitChat</h4>
-    <p class="chat-notification-message">You have a new message!</p>
-  </div>
-</div>
-
-
-<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-  <div class="shrink-0">
-    <img class="h-12 w-12" src="/img/logo.svg" alt="ChitChat Logo">
-  </div>
-  <div>
-    <div class="text-xl font-medium text-black">ChitChat</div>
-    <p class="text-slate-500">You have a new message!</p>
-  </div>
-</div> */}

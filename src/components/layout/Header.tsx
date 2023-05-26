@@ -1,12 +1,15 @@
 import { useState } from "react";
 function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  //TODO: ADD MOBILE FILTERING (AND PC FILTERING, BUT HEADER MENU COMPLICATES THINGS -- CONSIDER ANOTHER METHOD?)
+  //TODO: DECIDE ON WHAT THE TOP BAR NEEDS
+  //TODO: CENTER THE PC TOP BAR OPTIONS VERTICALLY
+  //TODO: GET A REAL LOGO
+  //TODO: CHANGE IMG TO NEXTJS IMAGE?
 
-  //bg-lime-700 z-50 text-center sticky top-0 text-white text-lg p-8
-  //flex sitcky top-0 text-center justify-between border-b border-gray-400 p-8 
+
   return (
-    <div className="flex sticky top-0 text-center bg-white z-50 justify-between border-b border-gray-400 p-8">
-      {/* TODO: CHANGE THIS TO NEXTJS LINK */}
+    <div className="flex sticky top-0 text-center lg:h-[115.83px] bg-stone-50 z-50 justify-between border-b-4 shadow-sm  p-8">
       <a href="/">
         <img
           className="w-32 p-2"
@@ -67,9 +70,6 @@ function Header() {
         </ul>
       </div>
     </div>
-    // <div className="bg-lime-700 z-50 text-center sticky top-0 text-white text-lg p-8">
-    //   FOOTER
-    // </div>
   );
 }
 

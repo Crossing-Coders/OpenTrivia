@@ -1,7 +1,7 @@
 import React from "react";
-import { TriviaCard } from "./TriviaCard";
+import Image from "next/image";
 import { useState } from "react";
-
+import { OpenTriviaCard } from "./OpenTriviaCard";
 
 interface TriviaEntry {
   locationId: number;
@@ -12,7 +12,7 @@ interface TriviaEntry {
   locationInstagram: string;
   locationTwitter: string;
   locationFacebook: string;
-  locationImage: string;
+  locationImage: string | null;
   locationType: string;
   locationPhoneNumber: string;
   locationAddressStreet: string;
@@ -42,37 +42,17 @@ interface TriviaEntry {
   };
 }
 
-
-interface TriviaCardListProps {
-  triviaEntryList: Array<TriviaEntry> | null;
-  onLocationCardClick: (locationId: number | undefined) => void;
-  currentlySelectedLocation: number | null;
+interface LocationCardProps {
+  triviaEntry: TriviaEntry | undefined;
 }
-    
-//TODO: FIGURE OUT HOW TO ADD DIFFERENT MODULES, HOW TO DO MULTIPLE PAGES,
+//box-shadow: 0 0 10px #0000001a;
 
-
-export const TriviaCardList: React.FC<TriviaCardListProps> = ({
-  triviaEntryList,
-  onLocationCardClick,
-  currentlySelectedLocation,
-}) => {
-  return (
-    <div className="flex flex-col w-full items-center">
-      {triviaEntryList?.map((triviaEntry) => {
-        return (
-          <TriviaCard
-            key={triviaEntry.locationId}
-            triviaEntry={triviaEntry}
-            onLocationCardClick={onLocationCardClick}
-            currentlySelected={
-              currentlySelectedLocation === triviaEntry.locationId
-                ? true
-                : false
-            }
-          />
-        );
-      })}
+export const LocationCard: React.FC<LocationCardProps> = ({ triviaEntry }) => {
+  return triviaEntry === undefined ? (
+    <OpenTriviaCard />
+  ) : (
+    <div className="text-white place-self-center">
+      LOCATION PAGE: {triviaEntry?.locationName}
     </div>
   );
 };
