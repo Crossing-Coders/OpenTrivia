@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Restraunt {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  email        String?
+  phone        String?
+  triviaEvents TriviaEvent[]
+  address      String
+  city         String
+  state        String
+  zipCode      Int
+  url          String
+}
+
+model TriviaEvent {
+  id          Int       @id @default(autoincrement())
+  name        String
+  restraunt   Restraunt @relation(fields: [restrauntId], references: [id])
+  restrauntId Int
+  starts_at   DateTime
+  price       Int?
+}
