@@ -22,17 +22,13 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 You can use a local .sqlite database file for working in your development environment.
 
-First, ensure your .env file contains the line:
-
-DATABASE_URL="file:./dev.db"
-
 To seed your database:
 
 ```bash
 yarn prisma db seed
 ```
 
-To interact with the data in your .sqlite database:
+To interact with the data in your Docker database:
 
 ```bash
 yarn prisma studio
