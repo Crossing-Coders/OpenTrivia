@@ -1,24 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-interface TriviaFilter {
-  time: {
-    sunday: boolean;
-    monday: boolean;
-    tuesday: boolean;
-    wednesday: boolean;
-    thursday: boolean;
-    friday: boolean;
-    saturday: boolean;
-    timeStartBeginRange: number;
-    timeStartEndRange: number;
-  };
-  location: {
-    //Valid Zip Code Detection?
-    zipCode: number | null;
-    mileage: number | null;
-  };
-  searchTerm: string;
-}
+import { TriviaFilter } from "@/types";
 
 interface TriviaFilterProps {
   selectedFilters: TriviaFilter;

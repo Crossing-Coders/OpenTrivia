@@ -3,44 +3,7 @@ import { TriviaCard } from "./TriviaCard";
 import { useState } from "react";
 
 
-interface TriviaEntry {
-  locationId: number;
-  //For instances where location has more than one trivia night
-  triviaId: number;
-  locationName: string;
-  locationWebsite: string;
-  locationInstagram: string;
-  locationTwitter: string;
-  locationFacebook: string;
-  locationImage: string;
-  locationType: string;
-  locationPhoneNumber: string;
-  locationAddressStreet: string;
-  locationAddressCity: string;
-  locationAddressState: string;
-  locationAddressZip: string;
-  locationAddressFull: string;
-  triviaDay: string;
-  triviaStartTime: number;
-  //On day of trivia
-  locationCloseTime: number;
-  triviaCompany: string | null;
-  locationFood: {
-    foodTruck: boolean | string;
-    kitchen: boolean | string;
-    bringYourOwn: boolean | string;
-  };
-  locationAlcohol: {
-    wine: boolean | string;
-    liquor: boolean | string;
-    beer: boolean | string;
-  };
-  locationAllowsDogs: boolean | string;
-  locationOutdoorSeating: {
-    forTrivia: boolean | string;
-    general: boolean | string;
-  };
-}
+import { TriviaEntry } from "@/types";
 
 
 interface TriviaCardListProps {
