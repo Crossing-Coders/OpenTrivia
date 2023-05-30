@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import { useRouter } from "next/router";
+import { useQueryState } from "next-usequerystate";
 import {ScreenDisplay} from './TriviaVenueScreenDisplay'
 import { TriviaVenueFilterSelector } from "./TriviaVenueFilterSelector";
 import { TriviaVenueCardList } from "./TriviaVenueCardList";
+
 
 
 
@@ -27,61 +29,113 @@ import { TEMPDATA } from "../../TEMPDATA";
 //How best to represent time?
 //setup ENUM incase of unknown? for now we do boolean or string
 
+  // const defaultFilter = {
+  //   time: {
+  //     sunday: false,
+  //     monday: false,
+  //     tuesday: false,
+  //     wednesday: false,
+  //     thursday: false,
+  //     friday: false,
+  //     saturday: false,
+  //     timeStartBeginRange: 1600,
+  //     timeStartEndRange: 2200,
+  //   },
+  //   geoData: {
+  //     zipCode: null,
+  //     mileage: null,
+  //   },
+  //   searchTerm: "",
+  // };
 
 
-
-const defaultFilter = {
-  time: {
-    sunday: false,
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
-    timeStartBeginRange: 1600,
-    timeStartEndRange: 2200,
-  },
-  geoData: {
-    zipCode: null,
-    mileage: null,
-  },
-  searchTerm: "",
-};
 //TODO: DEFAULT OPEN TRIVIA PAGE
 //TODO: SET UP EACH Venues PAGE
 //TODO: WE NEED A MAP
 //TODO: FILTERS
 //TODO: CLEAN UP CSS
 
-const TriviaVenueListDisplay: React.FC = () => {
-  //Should we have a list of filtered Trivias?
-  //   const [filteredTriviaList, setFilteredTriviaList] = useState<Array<TriviaEntry> | null>(null);
+// const queryFilter = {
+//   time: {
+//     sunday: router.query.sunday ? true : false,
+//     monday: router.query.monday ? true : false,
+//     tuesday: router.query.tuesday ? true : false,
+//     wednesday: router.query.wednesday ? true : false,
+//     thursday: router.query.thursday ? true : false,
+//     friday: router.query.friday ? true : false,
+//     saturday: router.query.saturday ? true : false,
+//     timeStartBeginRange: router.query.startTimeMin
+//       ? Number(router.query.startTimeMin)
+//       : -1,
+//     timeStartEndRange: Number(router.query.startTimeMax)
+//       ? Number(router.query.startTimeMax)
+//       : -1,
+//   },
+//   geoData: {
+//     zipCode: router.query.zipCode ? Number(router.query.zipCode) : null,
+//     mileage: router.query.maxMileage ? Number(router.query.maxMileage) : null,
+//   },
+//   searchTerm: router.query.searchParam ? router.query.searchParam : "",
+// };
 
+
+
+
+const TriviaVenueListDisplay: React.FC = () => {
   const [triviaVenueEntryList, setTriviaVenueEntryList] =
     useState<Array<TriviaVenueEntryData> | null>(null);
 
-  const [currentlySelectedTriviaVenue, setCurrentlySelectedTriviaVenue] = useState<
-    number | null
-  >(0);
-  const [filtersActive, setFiltersActive] = useState<boolean>(false);
+  const [currentlySelectedTriviaVenue, setCurrentlySelectedTriviaVenue] =
+    useState<number | null>(0);
 
-  const [selectedFilters, setSelectedFilters] =
-    useState<TriviaVenueFilterData>(defaultFilter);
+  //TODO: Figure out if this is needed
+  const router = useRouter();
+
+
+  // const [selectedFilters, setSelectedFilters] =
+  //   useState<TriviaVenueFilterData>(queryFilter);
 
   const [isLoading, setIsLoading] = useState(true);
 
+  //useEffect on initialload -- dont use query
+//not sure
+  // useEffect(() => {
+  //   const fetchData = async () => {
+
+  //   };
+  //   fetchData();
+  // }, []);
+
+const queryFilter = {
+  time: {
+    sunday: router.query.sunday ? true : false,
+    monday: router.query.monday ? true : false,
+    tuesday: router.query.tuesday ? true : false,
+    wednesday: router.query.wednesday ? true : false,
+    thursday: router.query.thursday ? true : false,
+    friday: router.query.friday ? true : false,
+    saturday: router.query.saturday ? true : false,
+    timeStartBeginRange: router.query.startTimeMin
+      ? Number(router.query.startTimeMin)
+      : -1,
+    timeStartEndRange: Number(router.query.startTimeMax)
+      ? Number(router.query.startTimeMax)
+      : -1,
+  },
+  geoData: {
+    zipCode: router.query.zipCode ? Number(router.query.zipCode) : null,
+    mileage: router.query.maxMileage ? Number(router.query.maxMileage) : null,
+  },
+  searchTerm: router.query.searchParam ? router.query.searchParam : "",
+};
+  //useEffect() for when the router updates?
   useEffect(() => {
-    const fetchData = async () => {
+      setIsLoading(true);
       setTriviaVenueEntryList(TEMPDATA);
       setIsLoading(false);
-    };
-    fetchData();
-  }, []);
+  }, [router.query]);
 
-  const handleFilterChange = (triviaFilter: TriviaVenueFilterData) => {
-    setSelectedFilters(triviaFilter);
-  };
+
 
   const handleSelectedTriviaVenueChange = (venueId: number | undefined) => {
     venueId === currentlySelectedTriviaVenue
@@ -98,8 +152,8 @@ const TriviaVenueListDisplay: React.FC = () => {
           {/* FILTER*/}
           <div className="hidden lg:block sticky sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
             <TriviaVenueFilterSelector
-              selectedFilters={selectedFilters}
-              onFilterChange={handleFilterChange}
+              selectedFilters={queryFilter}
+              // onFilterChange={handleFilterChange}
             />
           </div>
           {/* LIST*/}
@@ -113,11 +167,12 @@ const TriviaVenueListDisplay: React.FC = () => {
           </div>
           {/* RESTRAUNT PAGE -- hidden unless lg*/}
 
-          <div className="hidden lg:flex flex-col justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-orange-700">
+          <div className="hidden lg:flex flex-col justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-cyan-700">
             <ScreenDisplay
               triviaEntry={triviaVenueEntryList?.find(
                 (triviaVenueEntry) =>
-                  triviaVenueEntry.triviaVenueId === currentlySelectedTriviaVenue
+                  triviaVenueEntry.triviaVenueId ===
+                  currentlySelectedTriviaVenue
               )}
             />
           </div>

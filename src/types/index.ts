@@ -4,13 +4,14 @@ export interface TriviaVenueEntryData {
   //For instances where triviaVenue has more than one trivia night
   triviaVenueName: string;
   triviaVenueWebsite: string;
-  triviaVenueInstagram: string;
+  triviaVenueInstagram: string | undefined;
   triviaVenueTwitter: string;
   triviaVenueFacebook: string;
   triviaVenueImage: string;
   triviaVenueType: string;
   triviaVenuePhoneNumber: string;
-  triviaVenueAddressStreet: string;
+  triviaVenueAddressLine1: string;
+  triviaVenueAddressLine2: string;
   triviaVenueAddressCity: string;
   triviaVenueAddressState: string;
   triviaVenueAddressZip: string;
@@ -82,12 +83,13 @@ export interface TriviaVenueFilterData {
     friday: boolean;
     saturday: boolean;
     timeStartBeginRange: number;
-    timeStartEndRange: number;
+    timeStartEndRange: number ;
   };
+
   geoData: {
     //Valid Zip Code Detection?
     zipCode: number | null;
     mileage: number | null;
   };
-  searchTerm: string;
+  searchTerm: string | string[];
 }

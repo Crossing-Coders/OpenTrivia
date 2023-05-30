@@ -5,21 +5,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "ichef.bbci.co.uk",
-        port: "",
-        pathname: "/news/**",
+        hostname: "**",
       },
       {
-        protocol: "https",
-        hostname: "lh6.googleusercontent.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "lh5.googleusercontent.com",
-        port: "",
-        pathname: "/**",
+        protocol: "http",
+        hostname: "**",
       },
     ],
   },

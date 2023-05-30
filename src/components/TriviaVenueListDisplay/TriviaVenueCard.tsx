@@ -13,6 +13,11 @@ import {TriviaVenueEntryData} from '../../types/index'
 //TODO: FIGURE OUT DEFAULT IMAGE
 //TODO: SHAREABLE LINKS
 //TODO: IMG BORDERS?
+//TODO: DEFAULT Restataunt IMAGE
+
+const defaultTriviaVenueImage =
+  "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg";
+
 
 interface TriviaVenueCardProps {
   triviaVenueEntry: TriviaVenueEntryData | null;
@@ -35,26 +40,25 @@ export const TriviaVenueCard: React.FC<TriviaVenueCardProps> = ({
 
   return (
     <div
-      className={`test mb-8 w-full h-64 ${backGroundColor} rounded-md cursor-pointer shadow-md motion-reduce:animate-pulse ease-in duration-150 hover:shadow-xl py-2`}
+      className={`mb-8 w-full h-64 ${backGroundColor} rounded-md cursor-pointer shadow-md motion-reduce:animate-pulse ease-in duration-150 hover:shadow-xl py-2`}
       id={"outerHoverBoxMain"}
       onClick={handleTriviaVenueCardClick}
     >
-      <div className="test h-full w-full" id={"innerHoverBox"}>
-        <div className="flex h-full flex-row" id={"restrauntMainContainer"}>
+      <div className="test h-full w-full">
+        <div className="flex h-full flex-row">
           <div
             className="flex flex-col basis-4/12 grow-0 pl-7 h-max w-full self-center"
-            id={"restrauntImageContainer"}
           >
             <Image
-              className="rounded-md self-center outline-dotted outline-pink-200"
+              className="rounded-md self-center outline outline-gray-300"
               src={
-                triviaVenueEntry
+                triviaVenueEntry.triviaVenueImage !== ""
                   ? triviaVenueEntry.triviaVenueImage
-                  : "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
+                  : defaultTriviaVenueImage
               }
               width={150}
               height={150}
-              alt="Picture of the author"
+              alt="triviaVenueImage"
             />
           </div>
           <div
