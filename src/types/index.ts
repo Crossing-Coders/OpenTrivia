@@ -72,9 +72,7 @@ export interface TriviaInstance {
   triviaCompany: string | null;
 }
 
-
-export interface TriviaVenueFilterData {
-  time: {
+export interface TriviaVenueFilterTime {
     sunday: boolean;
     monday: boolean;
     tuesday: boolean;
@@ -83,9 +81,11 @@ export interface TriviaVenueFilterData {
     friday: boolean;
     saturday: boolean;
     timeStartBeginRange: number;
-    timeStartEndRange: number ;
-  };
+    timeStartEndRange: number;
+}
 
+export interface TriviaVenueFilterData {
+  time: TriviaVenueFilterTime;
   geoData: {
     //Valid Zip Code Detection?
     zipCode: number | null;

@@ -22,9 +22,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }
 
   return (
-    <div>
-        <Header />
-        <Component {...pageProps} />
+    <div className="font-mono">
+      <Header />
+      <Component {...pageProps} />
       <Footer />
     </div>
   );

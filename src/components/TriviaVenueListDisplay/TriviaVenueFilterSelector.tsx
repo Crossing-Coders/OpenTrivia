@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
+import { TriviaVenueLocationFilter } from "./TriviaVenueLocationFilter";
+import { TriviaVenueWeekdayFilter } from "./TriviaVenueWeekdayFilter";
+import { TriviaVenueTimeRangeFilter } from "./TriviaVenueTimeRangeFilter";
+
 import { TriviaVenueFilterData } from "@/types";
+
 interface TriviaVenueFilterProps {
   selectedFilters: TriviaVenueFilterData;
   // onFilterChange: (triviaFilter: TriviaVenueFilterData) => void;
@@ -26,7 +31,7 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
   //Again, is hardcoding the best option?
   const handleUpdatingQueryParams = (filterObject: TriviaVenueFilterData) => {
     // console.log(filterObject);
-    var queryObject: QueryObject = {};
+    const queryObject: QueryObject = {};
     //This is creating the queryObject for Router
     //GeoData
     filterObject.geoData.zipCode
@@ -37,12 +42,12 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
       ? (queryObject.maxMileage = filterObject.geoData.mileage)
       : {};
 
-    //Start Ranges
-    filterObject.time.timeStartBeginRange > 0
-      ? (queryObject.startTimeMin = filterObject.time.timeStartBeginRange)
+    //Start Range
+    Number(filterObject.time.timeStartBeginRange) > 0
+      ? (queryObject.earliestStart = filterObject.time.timeStartBeginRange)
       : {};
     filterObject.time.timeStartEndRange > 0
-      ? (queryObject.startTimeMax = filterObject.time.timeStartEndRange)
+      ? (queryObject.latestStart = filterObject.time.timeStartEndRange)
       : {};
 
     //sunday - monday
@@ -74,94 +79,56 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
     handleUpdatingQueryParams({ time: newTime, geoData, searchTerm });
   };
 
-  //TODO: IMPLEMENT THIS
-  const handleFilterTimeSelection = (
-    event: any,
-    timing: "start" | "end",
-    value?: number
-  ) => {
+  const handleStartTimeMinimum = (event: any, timeMin: string) => {
     event.preventDefault();
+    console.log("test");
+    const newTime = { ...time };
+    Number(timeMin) === newTime.timeStartBeginRange? newTime.timeStartBeginRange = -1 : newTime.timeStartBeginRange = Number(timeMin);
+    handleUpdatingQueryParams({ time: newTime, geoData, searchTerm });
   };
+
+  const handleStartTimeMaximum = (event: any, timeMax: string) => {
+    event.preventDefault();
+    console.log("test2");
+    const newTime = { ...time };
+    Number(timeMax) === newTime.timeStartEndRange
+      ? (newTime.timeStartEndRange = -1)
+      : (newTime.timeStartEndRange = Number(timeMax));
+    handleUpdatingQueryParams({ time: newTime, geoData, searchTerm });
+  };
+
 
   //TODO: IMPLEMENT THIS
   //Will probably rework this to be an option set at the begining of the process.
-  const handleFilterGeoSelection = (
-    event: any,
-    timing: "zipcode" | "mileage",
-    value: number
-  ) => {
+  const handleFilterZipSelect = (event: any, zipCode: string) => {
+    event.preventDefault();
+  };
+
+  const handleFilterMileageSelect = (event: any, zipCode: string) => {
     event.preventDefault();
   };
 
   //Display of filters (Checked/Unchecked etc.) will be based on the selectedFilters Prop
   //USE URL QUERYS????
   //CAN BE PUSHED VIA HEADER
-
+  //Convert to Components
   return (
-    <div>
-      <div>FILTERS</div>
-      <button
-        className={
-          selectedFilters.time.sunday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "sunday")}
-      >
-        Sunday
-      </button>
-      <div></div>
-      <button
-        className={
-          selectedFilters.time.monday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "monday")}
-      >
-        Monday
-      </button>
-      <div></div>
-      <button
-        className={
-          selectedFilters.time.tuesday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "tuesday")}
-      >
-        Tuesday
-      </button>
-      <div></div>
-      <button
-        className={
-          selectedFilters.time.wednesday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "wednesday")}
-      >
-        Wednesday
-      </button>
-      <div></div>
-      <button
-        className={
-          selectedFilters.time.thursday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "thursday")}
-      >
-        Thursday
-      </button>
-      <div></div>
-      <button
-        className={
-          selectedFilters.time.friday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "friday")}
-      >
-        Friday
-      </button>
-      <div></div>
-      <button
-        className={
-          selectedFilters.time.saturday ? "text-green-500" : "text-black"
-        }
-        onClick={(e) => handleFilterDaySelect(e, "saturday")}
-      >
-        Saturday
-      </button>
+    <div className="flex flex-col mt-1">
+      <TriviaVenueLocationFilter
+        geoData={selectedFilters.geoData}
+        handleZipcodeSelect={handleFilterZipSelect}
+        handleMileageSelect={handleFilterMileageSelect}
+      />
+      <TriviaVenueWeekdayFilter
+        timeFilters={selectedFilters.time}
+        handleFilterDaySelect={handleFilterDaySelect}
+      />
+      <TriviaVenueTimeRangeFilter
+        timeFilters={selectedFilters.time}
+        handleStartTimeMinimum={handleStartTimeMinimum}
+        handleStartTimeMaximum={handleStartTimeMaximum}
+      />
+      
     </div>
   );
 };
