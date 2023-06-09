@@ -6,7 +6,7 @@ import { TriviaVenueFilterSelector } from "./TriviaVenueFilterSelector";
 import { TriviaVenueCardList } from "./TriviaVenueCardList";
 import { TriviaVenueEntryData } from "../../types/index";
 import { TriviaVenueFilterData } from "../../types/index";
-
+import LandingPageScreen from "../LandingPageScreen";
 
 
 
@@ -38,43 +38,46 @@ const TriviaVenueListDisplay: React.FC = () => {
   //TODO: Figure out if this is needed
   const router = useRouter();
 
-
+  ///http://localhost:3000/?sunday=y
   const [isLoading, setIsLoading] = useState(true);
-
-//not sure
+  const [hasQuery, setHasQuery] = useState(false);
+  //not sure
   // useEffect(() => {
   //   const fetchData = async () => {
   //   };
   //   fetchData();
   // }, []);
 
-const queryFilter = {
-  time: {
-    sunday: router.query.sunday ? true : false,
-    monday: router.query.monday ? true : false,
-    tuesday: router.query.tuesday ? true : false,
-    wednesday: router.query.wednesday ? true : false,
-    thursday: router.query.thursday ? true : false,
-    friday: router.query.friday ? true : false,
-    saturday: router.query.saturday ? true : false,
-    timeStartBeginRange: router.query.earliestStart
-      ? Number(router.query.earliestStart)
-      : -1,
-    timeStartEndRange: Number(router.query.latestStart)
-      ? Number(router.query.latestStart)
-      : -1,
-  },
-  geoData: {
-    zipCode: router.query.zipCode ? Number(router.query.zipCode) : null,
-    mileage: router.query.maxMileage ? Number(router.query.maxMileage) : null,
-  },
-  searchTerm: router.query.searchParam ? router.query.searchParam : "",
-};
+  const queryFilter = {
+    time: {
+      sunday: router.query.sunday ? true : false,
+      monday: router.query.monday ? true : false,
+      tuesday: router.query.tuesday ? true : false,
+      wednesday: router.query.wednesday ? true : false,
+      thursday: router.query.thursday ? true : false,
+      friday: router.query.friday ? true : false,
+      saturday: router.query.saturday ? true : false,
+      timeStartBeginRange: router.query.earliestStart
+        ? Number(router.query.earliestStart)
+        : -1,
+      timeStartEndRange: Number(router.query.latestStart)
+        ? Number(router.query.latestStart)
+        : -1,
+    },
+    geoData: {
+      zipCode: router.query.zipCode ? Number(router.query.zipCode) : null,
+      mileage: router.query.maxMileage ? Number(router.query.maxMileage) : null,
+    },
+    searchTerm: router.query.searchParam ? router.query.searchParam : "",
+  };
+
+  const queryExists = Object.keys(router.query).length
+  console.log(queryExists)
   //useEffect() for when the router updates?
   useEffect(() => {
-      setIsLoading(true);
-      setTriviaVenueEntryList(TEMPDATA);
-      setIsLoading(false);
+    setIsLoading(true);
+    setTriviaVenueEntryList(TEMPDATA);
+    setIsLoading(false);
   }, [router.query]);
 
   const handleSelectedTriviaVenueChange = (venueId: number | undefined) => {
@@ -87,34 +90,41 @@ const queryFilter = {
     <div className="min-h-screen w-full">
       {isLoading ? (
         <p>Loading...</p>
-      ) : (
-        <div className="flex flex-row min-w-full min-h-screen ">
-          {/* FILTER*/}
-          <div className="hidden lg:block sticky overflow-x-hidden overflow-y-auto sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
-            <TriviaVenueFilterSelector
-              selectedFilters={queryFilter}
-              // onFilterChange={handleFilterChange}
-            />
-          </div>
-          {/* LIST*/}
-          {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
-          <div className="lg:block w-fill lg:basis-6/12 p-4 bg-stone-50 min-h-full">
-            <TriviaVenueCardList
-              triviaVenueEntryList={triviaVenueEntryList}
-              onTriviaVenueCardClick={handleSelectedTriviaVenueChange}
-              currentlySelectedTriviaVenue={currentlySelectedTriviaVenue}
-            />
-          </div>
-          {/* RESTRAUNT PAGE -- hidden unless lg*/}
+      ) : queryExists ? (
+        
+          <div className="flex flex-row min-w-full min-h-screen ">
+            {/* FILTER*/}
+            <div className="hidden lg:block sticky overflow-x-hidden overflow-y-auto sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
+              <TriviaVenueFilterSelector
+                selectedFilters={queryFilter}
+                // onFilterChange={handleFilterChange}
+              />
+            </div>
+            {/* LIST*/}
+            {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
+            <div className="lg:block w-fill lg:basis-6/12 p-4 bg-stone-50 min-h-full">
+              <TriviaVenueCardList
+                triviaVenueEntryList={triviaVenueEntryList}
+                onTriviaVenueCardClick={handleSelectedTriviaVenueChange}
+                currentlySelectedTriviaVenue={currentlySelectedTriviaVenue}
+              />
+            </div>
+            {/* RESTRAUNT PAGE -- hidden unless lg*/}
 
-          <div className="hidden lg:flex flex-col overflow-x-hidden overflow-y-auto justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-cyan-700">
-            <ScreenDisplay
-              triviaEntry={triviaVenueEntryList?.find(
-                (triviaVenueEntry) =>
-                  triviaVenueEntry.triviaVenueId ===
-                  currentlySelectedTriviaVenue
-              )}
-            />
+            <div className="hidden lg:flex flex-col overflow-x-hidden overflow-y-auto justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-cyan-700">
+              <ScreenDisplay
+                triviaEntry={triviaVenueEntryList?.find(
+                  (triviaVenueEntry) =>
+                    triviaVenueEntry.triviaVenueId ===
+                    currentlySelectedTriviaVenue
+                )}
+              />
+            </div>
+          </div>
+      ) : (
+        <div className="flex w-full justify-center bg-stone-50 ">
+          <div className="lg:max-w-4xl lg:flex justify-self-center flex-col justify-center min-h-screen z-10 grow bg-cyan-700">
+            <LandingPageScreen />
           </div>
         </div>
       )}

@@ -89,7 +89,6 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
 
   const handleStartTimeMaximum = (event: any, timeMax: string) => {
     event.preventDefault();
-    console.log("test2");
     const newTime = { ...time };
     Number(timeMax) === newTime.timeStartEndRange
       ? (newTime.timeStartEndRange = -1)
