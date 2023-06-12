@@ -26,19 +26,31 @@ const LandingPageScreen= () => {
     
     const handleTestClick3 = (event: any) => {
       event.preventDefault();
-      navigator.permissions.query({ name: "geolocation" });
       router.push({ pathname: "/", query: {'sunday':'y'} });
     };
   
   
   return (
-    <div className="text-white place-self-center text-center">
-      <div>Welcome to Open Trivia - Find Trivia Near You:</div>
-      <button onClick={handleTestClick1}>TEST1</button>
-      <br />
-      <button onClick={handleTestClick2}>TEST2</button>
-      <br />
-      <button onClick={handleTestClick3}>TEST2</button>
+    <div className="flex flex-col text-white text-center w-full h-full">
+      <div className="h-1/6"></div>
+      <div className="text-xl mt-3">Welcome to Open Trivia!</div>
+      <div className="mt-3">Find Trivia Near You:</div>
+      <div className="mt-3">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          <input
+            className="text-black border-green-500 border-2 active:border-red-500"
+            type="text"
+          />
+        </label>
+      </div>
+      <div className="h-full"></div>
+      <button onClick={handleTestClick1}>
+        LOG NAVIGATOR & GEO LOCATION PERMISSIONS
+      </button>
+      <button onClick={handleTestClick2}>
+        TRYS TO ACCESS GEO LOCATION AND LOG THE LAT/LONG
+      </button>
+      <button onClick={handleTestClick3}>ADD SUNDAY FILTER</button>
     </div>
   );
 };
