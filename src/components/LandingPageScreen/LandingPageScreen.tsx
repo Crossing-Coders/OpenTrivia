@@ -1,10 +1,22 @@
 import React from "react";
+import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
 
+import LandingPageSearchBar from "./LandingPageSearchBar";
+
+
+
 
 const LandingPageScreen= () => {
+  
+  //router containing the current search value
+
+  
   const router=useRouter()
+
+
     const handleTestClick1 = async (event: any) => {
       event.preventDefault();
       console.log(navigator);
@@ -26,22 +38,20 @@ const LandingPageScreen= () => {
     
     const handleTestClick3 = (event: any) => {
       event.preventDefault();
-      router.push({ pathname: "/", query: {'sunday':'y'} });
+      router.push({ pathname: "/", query: {'sunday':'y'}});
     };
   
-  
+
   return (
-    <div className="flex flex-col text-white text-center w-full h-full">
+    <div className="flex flex-col text-white w-full h-full items-center">
       <div className="h-1/6"></div>
       <div className="text-xl mt-3">Welcome to Open Trivia!</div>
       <div className="mt-3">Find Trivia Near You:</div>
-      <div className="mt-3">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
-          <input
-            className="text-black border-green-500 border-2 active:border-red-500"
-            type="text"
-          />
-        </label>
+      <div className="mt-3 w-[350px]">
+        <div className="flex flex-row w-full items-center">
+          <LandingPageSearchBar/>
+          <div className="ml-2"></div>
+        </div>
       </div>
       <div className="h-full"></div>
       <button onClick={handleTestClick1}>
