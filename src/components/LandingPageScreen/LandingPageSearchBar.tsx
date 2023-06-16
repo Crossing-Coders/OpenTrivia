@@ -4,15 +4,52 @@ import Router, { useRouter } from "next/router";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-
-import SearchIcon from "@mui/icons-material/Search";
 import { AutocompleteChangeReason } from "@mui/material/Autocomplete";
+import SearchIcon from "@mui/icons-material/Search";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export interface SearchValueData {
   id: string;
   label: string;
   type: string;
 }
+
+const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          fontFamily:
+            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
+          color: "rgba(250, 250, 249, 0.863)",
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(250, 250, 249, 0.863)",
+          },
+        },
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        listbox: {
+          fontFamily:
+            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
+          backgroundColor: "rgba(250, 250, 249, 0.863)",
+        },
+        inputRoot: {
+          fieldset: {
+            borderColor: "rgba(250, 250, 249, 0.863)",
+          },
+          "&:hover fieldset": {
+            borderColor: "rgba(250, 250, 249, 0.863)",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "rgba(250, 250, 249, 0.863)",
+          },
+        },
+      },
+    },
+  },
+});
 
 const filter = createFilterOptions<SearchValueData>();
 
@@ -53,6 +90,7 @@ const LandingPageSearchBar = () => {
 
     //Handles clicking the search button with a custom entry
     else if (reason === "clear") {
+      //TODO: Call Custom Search Function
       console.log(currentSearchValue);
     }
   };
@@ -87,71 +125,87 @@ const LandingPageSearchBar = () => {
 
   return (
     <div className="grow pl-2">
-      <Autocomplete
-        className="font-mono"
-        id="free-solo-demo"
-        freeSolo
-        inputValue={currentSearchValue.label}
-        value={currentSearchValue}
-        options={tempValues}
-        onChange={handleAutoCompleteSearch}
-        getOptionLabel={(option) =>
-          typeof option === "string" ? option : option.label
-        }
-        filterOptions={(options, params) => {
-          //TODO: Fix this when adding custom cities
-          const filtered = filter(options, params);
-          filtered.unshift({
-            label: "Current Location",
-            id: "getCurrentLocation",
-            type: "getCurrentLocation",
-          });
+      <ThemeProvider theme={theme}>
+        <Autocomplete
+          autoSelect
+          className="font-mono"
+          id="free-solo-demo"
+          freeSolo
+          openOnFocus
+          selectOnFocus
+          inputValue={currentSearchValue.label}
+          value={currentSearchValue}
+          options={tempValues}
+          onChange={handleAutoCompleteSearch}
+          getOptionLabel={(option) =>
+            typeof option === "string" ? option : option.label
+          }
+          filterOptions={(options, params) => {
+            //TODO: Fix this when adding custom cities
+            const filtered = filter(options, params);
+            filtered.unshift({
+              label: "Current Location",
+              id: "getCurrentLocation",
+              type: "getCurrentLocation",
+            });
 
-          return filtered;
-        }}
-        renderInput={(params) => {
-          const myNewParams = {
-            ...params,
-            InputProps: {
-              ...params.InputProps,
-              className: "MuiAutocomplete-inputRoot RENDERINPUTTEST font-mono",
-            },
-            inputProps: {
-              ...params.inputProps,
-              className: "font-mono MuiAutocomplete-input MuiAutocomplete-inputFocused MuiAutocomplete-inputRoot RENDERINPUTTESTinput ",
-            },
-          };
-          console.log(myNewParams);
+            return filtered;
+          }}
+          renderInput={(params) => {
+            const myNewParams = {
+              ...params,
+              InputProps: {
+                ...params.InputProps,
+                className: "MuiAutocomplete-inputRoot RENDERINPUTTEST",
+              },
+              inputProps: {
+                ...params.inputProps,
+                className:
+                  "MuiAutocomplete-input MuiAutocomplete-inputFocused MuiAutocomplete-inputRoot hover:border-green-200 RENDERINPUTTESTinput ",
+              },
+            };
+            console.log(myNewParams);
 
-          return (
-            <TextField
-              {...myNewParams}
-              onChange={handleAutoCompleteSearchChange}
-              placeholder="Zip, Address, City"
-              className="TEXTFIELDTEST"
-            />
-          );
-        }}
-        clearText="Search"
-        clearIcon={
-          <SearchIcon className="cursor-pointer font-mono SEARCHICONTEST" />
-        }
-        slotProps={{
-          clearIndicator: {
-            className:
-              "bg-white hover:text-green-200 font-mono CLEARINDICATORTEST",
-          },
-          paper: {
-            className: "bg-white font-mono PAPERTEST",
-          },
-          popper: {
-            className: "bg-white font-mono POPPERTEST",
-          },
-          popupIndicator: {
-            className: "bg-white font-mono POPPERINDICATORTEST",
-          },
-        }}
-      />
+            return (
+              <TextField
+                {...myNewParams}
+                onChange={handleAutoCompleteSearchChange}
+                placeholder="Zip, Address, City"
+                className="TEXTFIELDTEST text-fuchsia-900"
+                variant="outlined"
+              />
+            );
+          }}
+          clearText="Search"
+          clearIcon={
+            <SearchIcon className="cursor-pointer font-mono SEARCHICONTEST" />
+          }
+          slotProps={{
+            clearIndicator: {
+              className:
+                "bg-white hover:text-green-200 font-mono CLEARINDICATORTEST",
+            },
+            paper: {
+              className: "bg-white font-mono PAPERTEST",
+            },
+            popper: {
+              className: "bg-white font-mono POPPERTEST",
+            },
+            popupIndicator: {
+              className: "bg-white font-mono POPPERINDICATORTEST",
+            },
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              // Prevent's default 'Enter' behavior.
+              event.preventDefault();
+              //TODO: Call Custom Search Function
+              console.log(currentSearchValue);
+              // your handler code
+            }
+          }}
+        />
+      </ThemeProvider>
     </div>
   );
 };
