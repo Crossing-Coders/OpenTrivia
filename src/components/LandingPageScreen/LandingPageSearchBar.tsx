@@ -67,8 +67,7 @@ const LandingPageSearchBar = () => {
     value: string | SearchValueData | null,
     reason: AutocompleteChangeReason
   ) => {
-    console.log(value);
-    console.log(reason);
+    console.log('handleAutoCompleteSearch')
 
     //Handles Cases of when user selects current location and, in the future, when user selects a prepopulated city
     //TODO: Add Prepopulated cities
@@ -82,6 +81,7 @@ const LandingPageSearchBar = () => {
         });
         navigator.permissions.query({ name: "geolocation" });
         navigator.geolocation.getCurrentPosition((test) => {
+          console.log('handleAutocmoeplteSEarch: getCurrentLocation')
           console.log("Location - Lat", test.coords.latitude);
           console.log("Location - Lat", test.coords.longitude);
         });
@@ -91,7 +91,7 @@ const LandingPageSearchBar = () => {
     //Handles clicking the search button with a custom entry
     else if (reason === "clear") {
       //TODO: Call Custom Search Function
-      console.log(currentSearchValue);
+      handleCustomSearchSubmit(currentSearchValue);
     }
   };
 
@@ -104,6 +104,30 @@ const LandingPageSearchBar = () => {
       label: event.target.value,
     });
   };
+
+    //TODO: Determine if search is based on
+    const handleCustomSearchSubmit = (searchValue: SearchValueData) => {
+      //TODO: Figure out if we should allow custom City, States ==> should these values show up in the AutoComplete?
+      //TODO: Figure out this logic / Should it go on the back end??
+      //ZipCode (use Regex)
+      //City use (WORD(s)[Johns Creek], STATE_2_LETTER_CODE or WORD(s), WORD(s) SOUTH_DAKOTA) OR (Automatically provided cities based on IP Addresses)
+      //Anything Else is Address (USE Google API????)
+      console.log('handleCustomSearchSubmit:')
+      console.log(searchValue.label);
+      const zipCodeRegex = "^[0-9]{5}(?:-[0-9]{4})?$";
+      const foundZipCode = searchValue.label.match(zipCodeRegex)
+      
+      if (foundZipCode){
+        console.log('found zipcode')
+        //TODO: Return here???
+      }
+      const cityStateRegex = "/([A-Za-z]+(?: [A-Za-z]+)*),? ([A-Za-z]{2})/";
+      const foundCityState = searchValue.label.match(cityStateRegex);
+      if(foundCityState){
+        console.log('hheheheh')
+      }
+      
+    };
 
   const tempValues = [
     {
@@ -164,6 +188,7 @@ const LandingPageSearchBar = () => {
                   "MuiAutocomplete-input MuiAutocomplete-inputFocused MuiAutocomplete-inputRoot hover:border-green-200 RENDERINPUTTESTinput ",
               },
             };
+            console.log('renderInput:')
             console.log(myNewParams);
 
             return (
@@ -200,7 +225,7 @@ const LandingPageSearchBar = () => {
               // Prevent's default 'Enter' behavior.
               event.preventDefault();
               //TODO: Call Custom Search Function
-              console.log(currentSearchValue);
+              handleCustomSearchSubmit(currentSearchValue);
               // your handler code
             }
           }}
