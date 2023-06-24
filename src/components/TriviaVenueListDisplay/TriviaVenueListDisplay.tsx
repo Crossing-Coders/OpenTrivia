@@ -48,6 +48,8 @@ const TriviaVenueListDisplay: React.FC = () => {
   //   fetchData();
   // }, []);
 
+  // https:nextjs.org/docs/app/building-your-application/data-fetching/fetching
+
   const queryFilter = {
     time: {
       sunday: router.query.sunday ? true : false,
@@ -71,8 +73,8 @@ const TriviaVenueListDisplay: React.FC = () => {
     searchTerm: router.query.searchParam ? router.query.searchParam : "",
   };
 
-  const queryExists = Object.keys(router.query).length
-  console.log(queryExists)
+  const queryExists = Object.keys(router.query).length;
+  console.log(queryExists);
   //useEffect() for when the router updates?
   useEffect(() => {
     setIsLoading(true);
@@ -91,36 +93,35 @@ const TriviaVenueListDisplay: React.FC = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : queryExists ? (
-        
-          <div className="flex flex-row min-w-full min-h-screen ">
-            {/* FILTER*/}
-            <div className="hidden lg:block sticky overflow-x-hidden overflow-y-auto sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
-              <TriviaVenueFilterSelector
-                selectedFilters={queryFilter}
-                // onFilterChange={handleFilterChange}
-              />
-            </div>
-            {/* LIST*/}
-            {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
-            <div className="lg:block w-fill lg:basis-6/12 p-4 bg-stone-50 min-h-full">
-              <TriviaVenueCardList
-                triviaVenueEntryList={triviaVenueEntryList}
-                onTriviaVenueCardClick={handleSelectedTriviaVenueChange}
-                currentlySelectedTriviaVenue={currentlySelectedTriviaVenue}
-              />
-            </div>
-            {/* RESTRAUNT PAGE -- hidden unless lg*/}
-
-            <div className="hidden lg:flex flex-col overflow-x-hidden overflow-y-auto justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-cyan-700">
-              <ScreenDisplay
-                triviaEntry={triviaVenueEntryList?.find(
-                  (triviaVenueEntry) =>
-                    triviaVenueEntry.triviaVenueId ===
-                    currentlySelectedTriviaVenue
-                )}
-              />
-            </div>
+        <div className="flex flex-row min-w-full min-h-screen ">
+          {/* FILTER*/}
+          <div className="hidden lg:block sticky overflow-x-hidden overflow-y-auto sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
+            <TriviaVenueFilterSelector
+              selectedFilters={queryFilter}
+              // onFilterChange={handleFilterChange}
+            />
           </div>
+          {/* LIST*/}
+          {/* Need to add the Filter Logic - might make sense to put in a triviaList Component // NEW - ON CLICK, IF ITS MOBILE, REDIRECT TO PAGE, OTHERWISE, have it pop up on the side*/}
+          <div className="lg:block w-fill lg:basis-6/12 p-4 bg-stone-50 min-h-full">
+            <TriviaVenueCardList
+              triviaVenueEntryList={triviaVenueEntryList}
+              onTriviaVenueCardClick={handleSelectedTriviaVenueChange}
+              currentlySelectedTriviaVenue={currentlySelectedTriviaVenue}
+            />
+          </div>
+          {/* RESTRAUNT PAGE -- hidden unless lg*/}
+
+          <div className="hidden lg:flex flex-col overflow-x-hidden overflow-y-auto justify-center h-screen sticky sideFrameHeight self-end bottom-0 z-10 basis-5/12 bg-cyan-700">
+            <ScreenDisplay
+              triviaEntry={triviaVenueEntryList?.find(
+                (triviaVenueEntry) =>
+                  triviaVenueEntry.triviaVenueId ===
+                  currentlySelectedTriviaVenue
+              )}
+            />
+          </div>
+        </div>
       ) : (
         <div className="flex w-full justify-center bg-stone-50 ">
           <div className="lg:max-w-4xl lg:flex justify-self-center flex-col justify-center min-h-screen z-10 grow bg-cyan-700">

@@ -1,43 +1,64 @@
-const getTriviaVenuesFiltered = async (myname) => {
-  const response = await fetch(`/api/perp/perpSearch/${myname}`);
-  const data = await response.json();
-  console.log("perpService: getPerpsFiltered data", data);
-  return data;
+// const getTriviaVenuesFiltered = async (myname) => {
+//   const response = await fetch(`/api/perp/perpSearch/${myname}`);
+//   const data = await response.json();
+//   console.log("perpService: getPerpsFiltered data", data);
+//   return data;
 
-  return [
-    {
-      fullname: "JOHN F KENNEDY",
-      imageurl:
-        "https://static.life.com/wp-content/uploads/migrated/2013/10/131030-jfk-1947-senator-01.jpg",
-      webid: "JFK_WEBID",
-      perpdesc: "JFK_PERPDESC",
-    },
-    {
-      fullname: "fakename",
-      imageurl: null,
-      webid: "FAKEWEBID",
-      perpdesc: "fakeperpdesc",
-    },
-  ];
+//   return [
+//     {
+//       fullname: "JOHN F KENNEDY",
+//       imageurl:
+//         "https://static.life.com/wp-content/uploads/migrated/2013/10/131030-jfk-1947-senator-01.jpg",
+//       webid: "JFK_WEBID",
+//       perpdesc: "JFK_PERPDESC",
+//     },
+//     {
+//       fullname: "fakename",
+//       imageurl: null,
+//       webid: "FAKEWEBID",
+//       perpdesc: "fakeperpdesc",
+//     },
+//   ];
+// };
+
+
+export interface TriviaSearchTypeRequestData {
+  searchParam: string;
+}
+
+const getTriviaSearchType = async (requestData: TriviaSearchTypeRequestData) => {
+  console.log(requestData.searchParam)
 };
 
-const getSpecificPerp = async (mywebid) => {
-  //CREATE NEXTJS API
+export interface TriviaSearchLocationData {
+  searchParam: string;
+  searchParamType: string;
+  distanceLimit: number;
+
+}
+
+const getTriviaVenuesByLocation = async (
+  requestData: TriviaSearchLocationData
+) => {
+  const request = new Request("/api/triviaSearch/", {
+    method: "POST",
+    body: JSON.stringify(requestData),
+  });
+  const res = await fetch(request);
+  if (!res.ok){
+    throw new Error('Failed to fetch data')
+  }
+
+
+  const resBody = await res.json()
+  
+
+  return resBody;
+
 };
 
-const getRandomPerp = async () => {
-  const response = await fetch(`/api/perp/random`);
-  const data = await response.json();
-  return data;
-};
-
-const votePerp = async (mywebid, myvote) => {
-  //CREATE NEXTJS API
-};
 
 export default {
-  getPerpsFiltered,
-  getSpecificPerp,
-  getRandomPerp,
-  votePerp,
+  getTriviaSearchType,
+  getTriviaVenuesByLocation
 };
