@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Restraunt {
+model TriviaVenue {
   id           Int           @id @default(autoincrement())
   name         String        @unique
   email        String?
@@ -24,10 +24,10 @@ model Restraunt {
 }
 
 model TriviaEvent {
-  id          Int       @id @default(autoincrement())
-  name        String
-  restraunt   Restraunt @relation(fields: [restrauntId], references: [id])
-  restrauntId Int
-  starts_at   DateTime
-  price       Int?
+  id            Int         @id @default(autoincrement())
+  name          String
+  restraunt     TriviaVenue @relation(fields: [triviaVenueId], references: [id])
+  triviaVenueId Int
+  starts_at     DateTime
+  price         Int?
 }
