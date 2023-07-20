@@ -28,6 +28,6 @@ model TriviaEvent {
   name          String
   restraunt     TriviaVenue @relation(fields: [triviaVenueId], references: [id])
   triviaVenueId Int
-  starts_at     DateTime
+  startsAt      DateTime
   price         Int?
 }
