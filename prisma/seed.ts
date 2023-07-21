@@ -1,5 +1,5 @@
-import { mockTriviaEvents } from "@/mocks/events";
-import { mockTriviaVenues } from "@/mocks/venues";
+import { mockTriviaEvents } from "../src//mocks/events";
+import { mockTriviaVenues } from "../src/mocks/venues";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
