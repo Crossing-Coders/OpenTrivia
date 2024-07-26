@@ -43,21 +43,21 @@ export const TriviaVenueWeekdayFilter: React.FC<TriviaVenueWeekdayFilter> = ({
       <div className="flex flex-row mt-1 w-full">
         <div className="flex flex-col w-1/2 items-center ml-1">
           <TriviaVenueFilterButton
-            selected={timeFilters.sunday}
+            selected={timeFilters.days.sunday}
             buttonId={"sunday_dayFilter"}
             buttonText={"Sun"}
             buttonValue={"sunday"}
             handleButtonClick={handleFilterDaySelect}
           />
           <TriviaVenueFilterButton
-            selected={timeFilters.tuesday}
+            selected={timeFilters.days.tuesday}
             buttonId={"tuesday_dayFilter"}
             buttonText={"Tue"}
             buttonValue={"tuesday"}
             handleButtonClick={handleFilterDaySelect}
           />
           <TriviaVenueFilterButton
-            selected={timeFilters.thursday}
+            selected={timeFilters.days.thursday}
             buttonId={"thursday_dayFilter"}
             buttonText={"Thu"}
             buttonValue={"thursday"}
@@ -66,14 +66,14 @@ export const TriviaVenueWeekdayFilter: React.FC<TriviaVenueWeekdayFilter> = ({
         </div>
         <div className="flex flex-col w-1/2 items-center mr-1">
           <TriviaVenueFilterButton
-            selected={timeFilters.monday}
+            selected={timeFilters.days.monday}
             buttonId={"monday_dayFilter"}
             buttonText={"Mon"}
             buttonValue={"monday"}
             handleButtonClick={handleFilterDaySelect}
           />
           <TriviaVenueFilterButton
-            selected={timeFilters.wednesday}
+            selected={timeFilters.days.wednesday}
             buttonId={"wednesday_dayFilter"}
             buttonText={"Wed"}
             buttonValue={"wednesday"}
@@ -81,7 +81,7 @@ export const TriviaVenueWeekdayFilter: React.FC<TriviaVenueWeekdayFilter> = ({
           />
 
           <TriviaVenueFilterButton
-            selected={timeFilters.friday}
+            selected={timeFilters.days.friday}
             buttonId={"friday_dayFilter"}
             buttonText={"Fri"}
             buttonValue={"friday"}
@@ -91,7 +91,7 @@ export const TriviaVenueWeekdayFilter: React.FC<TriviaVenueWeekdayFilter> = ({
       </div>
       <div className="flex place-self-center w-1/2 justify-center">
         <TriviaVenueFilterButton
-          selected={timeFilters.saturday}
+          selected={timeFilters.days.saturday}
           buttonId={"saturday_dayFilter"}
           buttonText={"Sat"}
           buttonValue={"saturday"}

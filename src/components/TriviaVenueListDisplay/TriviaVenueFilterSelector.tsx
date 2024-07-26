@@ -29,7 +29,7 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
   //TODO: This is jank as fuck too
   //Should I handle this here?
   //Again, is hardcoding the best option?
-  const handleUpdatingQueryParams = (filterObject: TriviaVenueFilterData) => {
+  const doUpdatingQueryParams = (filterObject: TriviaVenueFilterData) => {
     // console.log(filterObject);
     const queryObject: QueryObject = {};
     //This is creating the queryObject for Router
@@ -46,19 +46,15 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
     Number(filterObject.time.timeStartBeginRange) > 0
       ? (queryObject.earliestStart = filterObject.time.timeStartBeginRange)
       : {};
-    filterObject.time.timeStartEndRange > 0
+    Number(filterObject.time.timeStartEndRange) > 0
       ? (queryObject.latestStart = filterObject.time.timeStartEndRange)
       : {};
 
-    //sunday - monday
-    filterObject.time.sunday ? (queryObject.sunday = "y") : {};
-    filterObject.time.monday ? (queryObject.monday = "y") : {};
-    filterObject.time.tuesday ? (queryObject.tuesday = "y") : {};
-    filterObject.time.wednesday ? (queryObject.wednesday = "y") : {};
-    filterObject.time.thursday ? (queryObject.thursday = "y") : {};
-    filterObject.time.friday ? (queryObject.friday = "y") : {};
-    filterObject.time.saturday ? (queryObject.saturday = "y") : {};
-    router.push({ pathname: "/", query: queryObject });
+    const daysSelected = Object.entries(filterObject.time.days).filter(
+      (dayValueList) => dayValueList[1]
+    ).map(dayValueList => dayValueList[0]).join(',');
+    daysSelected.length > 0 ? queryObject.days = daysSelected : {}
+    router.push({ pathname: "/search", query: queryObject });
   };
 
   //TODO: this whole function looks jank as shit
@@ -75,8 +71,8 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
   ) => {
     event.preventDefault();
     const newTime = { ...time };
-    newTime[day] = !time[day];
-    handleUpdatingQueryParams({ time: newTime, geoData, searchTerm });
+    newTime.days[day] = !time.days[day];
+    doUpdatingQueryParams({ time: newTime, geoData, searchTerm });
   };
 
   const handleStartTimeMinimum = (event: any, timeMin: string) => {
@@ -84,7 +80,7 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
     console.log("test");
     const newTime = { ...time };
     Number(timeMin) === newTime.timeStartBeginRange? newTime.timeStartBeginRange = -1 : newTime.timeStartBeginRange = Number(timeMin);
-    handleUpdatingQueryParams({ time: newTime, geoData, searchTerm });
+    doUpdatingQueryParams({ time: newTime, geoData, searchTerm });
   };
 
   const handleStartTimeMaximum = (event: any, timeMax: string) => {
@@ -93,7 +89,7 @@ export const TriviaVenueFilterSelector: React.FC<TriviaVenueFilterProps> = ({
     Number(timeMax) === newTime.timeStartEndRange
       ? (newTime.timeStartEndRange = -1)
       : (newTime.timeStartEndRange = Number(timeMax));
-    handleUpdatingQueryParams({ time: newTime, geoData, searchTerm });
+    doUpdatingQueryParams({ time: newTime, geoData, searchTerm });
   };
 
 

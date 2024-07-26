@@ -73,6 +73,7 @@ export interface TriviaInstance {
 }
 
 export interface TriviaVenueFilterTime {
+  days: {
     sunday: boolean;
     monday: boolean;
     tuesday: boolean;
@@ -80,8 +81,9 @@ export interface TriviaVenueFilterTime {
     thursday: boolean;
     friday: boolean;
     saturday: boolean;
-    timeStartBeginRange: number;
-    timeStartEndRange: number;
+  };
+  timeStartBeginRange: number;
+  timeStartEndRange: number;
 }
 
 export interface TriviaVenueFilterData {
@@ -89,7 +91,13 @@ export interface TriviaVenueFilterData {
   geoData: {
     //Valid Zip Code Detection?
     zipCode: number | null;
+    cityLoc: string | string[] | null;
+    custLoc: string | string[] | null;
     mileage: number | null;
+    curLoc:{
+      lat: number | null;
+      lon: number | null;
+    }
   };
-  searchTerm: string | string[];
+  searchTerm: string | string[] | null;
 }

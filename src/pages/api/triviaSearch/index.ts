@@ -58,16 +58,19 @@ interface TriviaSearchTypeResponseData {
 }
 
 
+//const handleSearch
+
+
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<TriviaSearchTypeResponseData>
 ) {
-  if (!req.body){
-    res.status(400).json({ searchType: 'Bad Request: No Body Found' })
-
+  if (!req.body) {
+    res.status(400).json({ searchType: "Bad Request: No Body Found" });
   }
 
-
+  //USE QUERY PARAMS https://nextjs.org/docs/pages/building-your-application/routing/api-routes#query-parameters
   const myReqBody = await JSON.parse(req.body);
   if (req.method === "POST") {
     switch (myReqBody.searchParamType) {
@@ -92,10 +95,6 @@ export default async function handler(
           .status(400)
           .json({ searchType: "Bad Request: Invalid Search Type" });
     }
-    
-
-
-
   } else if (req.method === "GET") {
   } else if (req.method === "PUT") {
   }

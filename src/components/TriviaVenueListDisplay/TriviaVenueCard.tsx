@@ -30,7 +30,6 @@ export const TriviaVenueCard: React.FC<TriviaVenueCardProps> = ({
   currentlySelected,
 }) => {
   const handleTriviaVenueCardClick = (event: any) => {
-    console.log(triviaVenueEntry?.triviaVenueId);
     onTriviaVenueCardClick(triviaVenueEntry?.triviaVenueId);
   };
 
@@ -41,7 +40,7 @@ export const TriviaVenueCard: React.FC<TriviaVenueCardProps> = ({
   return (
     <div
       className={`mb-8 w-full h-64 ${backGroundColor} rounded-md cursor-pointer shadow-md motion-reduce:animate-pulse ease-in duration-150 hover:shadow-xl py-2`}
-      id={"outerHoverBoxMain"}
+      id="outerHoverBoxMain"
       onClick={handleTriviaVenueCardClick}
     >
       <div className="test h-full w-full">

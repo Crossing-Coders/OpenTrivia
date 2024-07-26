@@ -48,17 +48,18 @@ const TriviaVenueListDisplay: React.FC = () => {
   //   fetchData();
   // }, []);
 
-  // https:nextjs.org/docs/app/building-your-application/data-fetching/fetching
-
+  //https:nextjs.org/docs/app/building-your-application/data-fetching/fetching
   const queryFilter = {
     time: {
-      sunday: router.query.sunday ? true : false,
-      monday: router.query.monday ? true : false,
-      tuesday: router.query.tuesday ? true : false,
-      wednesday: router.query.wednesday ? true : false,
-      thursday: router.query.thursday ? true : false,
-      friday: router.query.friday ? true : false,
-      saturday: router.query.saturday ? true : false,
+      days:{
+        sunday: router.query.days?.includes("sunday") ? true : false,
+      monday: router.query.days?.includes("monday") ? true : false,
+      tuesday: router.query.days?.includes("tuesday") ? true : false,
+      wednesday: router.query.days?.includes("wednesday") ? true : false,
+      thursday: router.query.days?.includes("thursday") ? true : false,
+      friday: router.query.days?.includes("friday") ? true : false,
+      saturday: router.query.days?.includes("saturday") ? true : false,
+      },
       timeStartBeginRange: router.query.earliestStart
         ? Number(router.query.earliestStart)
         : -1,
@@ -69,13 +70,18 @@ const TriviaVenueListDisplay: React.FC = () => {
     geoData: {
       zipCode: router.query.zipCode ? Number(router.query.zipCode) : null,
       mileage: router.query.maxMileage ? Number(router.query.maxMileage) : null,
+      cityLoc: router.query.cityLoc ? router.query.cityLoc : null,
+      custLoc: router.query.custLoc ? router.query.custLoc : null,
+      curLoc: {
+        lat: router.query.lat ? Number(router.query.lat) : null,
+        lon: router.query.lon ? Number(router.query.lon) : null,
+      },
     },
-    searchTerm: router.query.searchParam ? router.query.searchParam : "",
+    searchTerm: router.query.searchParam ? router.query.searchParam : null,
   };
+  
 
-  const queryExists = Object.keys(router.query).length;
-  console.log(queryExists);
-  //useEffect() for when the router updates?
+
   useEffect(() => {
     setIsLoading(true);
     setTriviaVenueEntryList(TEMPDATA);
@@ -92,7 +98,7 @@ const TriviaVenueListDisplay: React.FC = () => {
     <div className="min-h-screen w-full">
       {isLoading ? (
         <p>Loading...</p>
-      ) : queryExists ? (
+      ) : (
         <div className="flex flex-row min-w-full min-h-screen ">
           {/* FILTER*/}
           <div className="hidden lg:block sticky overflow-x-hidden overflow-y-auto sideFrameHeight self-end basis-1/12 bottom-0 border-r-4 z-10  bg-stone-50 text-black">
@@ -122,13 +128,7 @@ const TriviaVenueListDisplay: React.FC = () => {
             />
           </div>
         </div>
-      ) : (
-        <div className="flex w-full justify-center bg-stone-50 ">
-          <div className="lg:max-w-4xl lg:flex justify-self-center flex-col justify-center min-h-screen z-10 grow bg-cyan-700">
-            <LandingPageScreen />
-          </div>
-        </div>
-      )}
+      ) }
     </div>
   );
 };

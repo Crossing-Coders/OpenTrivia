@@ -49,7 +49,6 @@ const getTriviaVenuesByLocation = async (
     throw new Error('Failed to fetch data')
   }
 
-
   const resBody = await res.json()
   
 

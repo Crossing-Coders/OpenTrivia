@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Router, { useRouter } from "next/router";
 
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { AutocompleteChangeReason } from "@mui/material/Autocomplete";
 import {
@@ -29,7 +31,7 @@ const theme = createTheme({
             'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
           color: "rgba(250, 250, 249, 0.863)",
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(250, 250, 249, 0.863)",
+            borderColor: "rgba(0, 0, 249, 0.863)",
           },
         },
       },
@@ -58,7 +60,7 @@ const theme = createTheme({
 });
 
 const currentLocationListOption = {
-  label: "Current Location",
+  label: "Use Current Location",
   id: "getCurrentLocation",
   type: "currentLocationSearch",
 };
@@ -84,7 +86,6 @@ const LandingPageSearchBar = () => {
 
   useEffect(() => {
     const getLocationPerms = async () => {
-      console.log(navigator)
       const myLocationPerms = await navigator.permissions.query({ name: "geolocation" });
       setLocationPerms(myLocationPerms.state);
     };
@@ -167,7 +168,7 @@ const LandingPageSearchBar = () => {
     //ZipCode (use Regex)
     //City use (WORD(s)[Johns Creek], STATE_2_LETTER_CODE or WORD(s), WORD(s) SOUTH_DAKOTA) OR (Automatically provided cities based on IP Addresses)
     //Anything Else is Address (USE Google API????)
-    // await navigator.permissions.query({ name: "geolocation" });
+    await navigator.permissions.query({ name: "geolocation" });
 
     //  const test = navigator.geolocation.getCurrentPosition((test) => {
     //  console.log("handleAutocmoeplteSEarch: getCurrentLocation");
@@ -180,11 +181,9 @@ const LandingPageSearchBar = () => {
     //currentLocation
     //Provided Searches
 
-    router.push({ pathname: "/", query: { sunday: "y" } });
+    router.push({ pathname: "/search", query: { sunday: "y" } });
     return
 
-    console.log("handleCustomSearchSubmit:");
-    console.log(searchValue.label);
     const zipCodeRegex = "^[0-9]{5}(?:-[0-9]{4})?$";
     const foundZipCode = searchValue.label.match(zipCodeRegex);
 
@@ -264,6 +263,28 @@ const LandingPageSearchBar = () => {
               handleSearchSubmit(currentSearchValue);
             }
           }}
+          renderOption={(
+            { ...rest },
+            option
+          ) => {
+            const optionStyling =
+              option.id === "getCurrentLocation" &&
+              currentLocationPerms !== "denied"
+                ? { color: "rgb(14 116 144)", fontWeight: "bold" }
+                : { color: "black" };
+            
+            return (
+              <Box
+                component="span"
+                className="searchForm-result text-blue-200"
+                sx={{
+                  color: optionStyling,
+                }}
+                {...rest}
+              >
+                {option.label}
+              </Box>
+            );}}
           renderInput={(params) => {
             return (
               <TextField
@@ -275,19 +296,22 @@ const LandingPageSearchBar = () => {
             );
           }}
           clearText="Search"
-          clearIcon={<SearchIcon className="cursor-pointer font-mono" />}
+          clearIcon={
+            <SearchIcon className="cursor-pointer font-mono SEARCHICONTEST" />
+          }
           slotProps={{
             clearIndicator: {
-              className: "bg-white hover:text-green-200 font-mono",
+              className:
+                "bg-clear hover:text-green-200 font-mono visible CLEARINDICATORTEST",
             },
             paper: {
-              className: "bg-white font-mono",
+              className: "bg-stone-50 font-mono PAPERTEST",
             },
             popper: {
-              className: "bg-white font-mono",
+              className: "bg-green-500 font-mono POPPERTEST",
             },
             popupIndicator: {
-              className: "bg-white font-mono",
+              className: "bg-green-500 font-mono POPPERINDICATORTES",
             },
           }}
         />
